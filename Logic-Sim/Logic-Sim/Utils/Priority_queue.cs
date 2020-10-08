@@ -36,9 +36,10 @@ namespace Logic_Sim.Utils
             while (cur.left != null) cur = cur.left;
             cur.left = next;
             next.parent = cur;
+            cur = next;
 
             T temp;
-            while (next.parent != null && next.value.CompareTo(next.parent.value)<0) {
+            while (cur.parent != null && cur.value.CompareTo(cur.parent.value)<0) {
                 temp = cur.value;
                 cur.value = cur.parent.value;
                 cur.parent.value = temp;

@@ -1,0 +1,12 @@
+﻿/* Code by hector ricardez */
+ADD NOT clock
+ADD BUFFER buf 2500000
+ADD HIGH other
+CON clock 0 buf 0
+CON buf 0 clock 0
+ADD OUT_BYTE console
+CON clock 0 console 8
+CON clock 0 console 0
+CON other 0 console 1
+
+

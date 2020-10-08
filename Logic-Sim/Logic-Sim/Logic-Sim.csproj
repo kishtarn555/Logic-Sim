@@ -6,4 +6,10 @@
     <RootNamespace>Logic_Sim</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Update="Examples\GATES.lg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

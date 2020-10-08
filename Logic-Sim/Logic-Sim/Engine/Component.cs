@@ -6,7 +6,8 @@ namespace Logic_Sim.Engine
 {
     abstract class Component {
         protected int delay=1;
-        string name;
+        public string name { get; private set; }
+        public Port updatePin { get; private set; }
         Port[] inputs;
         bool[] outputstate;
         protected bool[] nextstate;
@@ -26,10 +27,16 @@ namespace Logic_Sim.Engine
             for (int i =0; i< outputSize; i++) {
                 outputs[i] = new List<Port>();
             }
+            updatePin = new Port(this);
         }
-
+        public bool GetOutput(int pin) {
+            if (pin < 0 || pin >= outputs.Length) {
+                throw new IndexOutOfRangeException("Asked for output pin out of bounds, asked for " + pin + "from " + this.ToString() + ", that has " + outputs.Length.ToString() + " pins");
+            }
+            return outputstate[pin];
+        }
         public abstract void DoUpdate();
-         Port GetPort(int pin) {
+         public Port GetPort(int pin) {
             if (pin < 0 ||pin >= inputs.Length) {
                 throw new IndexOutOfRangeException("Asked for pin out of bounds, asked for "+pin+ "from " +this.ToString()+", that has "+inputs.Length.ToString()+" pins");
             }
@@ -57,10 +64,15 @@ namespace Logic_Sim.Engine
                     tmp.delta = nextstate[i] ? 1 : -1;
                     circuit.AddUpdate(tmp);
                 }
+                outputstate[i] = nextstate[i];
             }
         }
         public override string ToString() {
-            return base.ToString()+" "+name;
+            string s=name+" ";
+            for (int i = 0; i < renderedInputs.Length; i++) s += renderedInputs[i] ? '1' : '0';
+            s += " -> ";
+            for (int i = 0; i < outputstate.Length; i++) s += outputstate[i] ? '1' : '0';
+            return s;
         }
 
         public class Port
@@ -69,7 +81,7 @@ namespace Logic_Sim.Engine
             List<Pair<Component, int>> components;
             public Component Container { get; private set; }
             int value;
-            public int Value { get { return value; } }
+            public int Value { get { return value; } set { this.value = value; } }
             public Port(Component container) {
                 components = new List<Pair<Component, int>>();
                 value = 0;

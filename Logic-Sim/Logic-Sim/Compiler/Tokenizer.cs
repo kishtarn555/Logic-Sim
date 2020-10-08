@@ -12,6 +12,7 @@ namespace Logic_Sim.Compiler
         }
 
         public int NextInt() {
+            trim();
             if (current >= tokens.Length) {
                 throw new Exception("While compiling, expecting number reached EOF");
             }
@@ -23,20 +24,23 @@ namespace Logic_Sim.Compiler
             throw new Exception("Expecting an integer, found: " + tokens[current]);
         }
         public string NextIdentifier() {
+            trim();
             if (current >= tokens.Length) {
                 throw new Exception("While compiling, expecting identifier reached EOF");
             }
-            if (!Regex.IsMatch(tokens[current], "^[a-zA-Z][a-zA-Z0-9]*")) throw new Exception("While compiling, expecting identifier, found " + tokens[current]);
+            if (!Regex.IsMatch(tokens[current], "^[a-zA-Z_][_a-zA-Z0-9]*$")) throw new Exception("While compiling, expecting identifier, found " + tokens[current]);
 
             return tokens[current++];
         }
         public string NextString() {
+            trim();
             if (current >= tokens.Length) {
                 throw new Exception("While compiling, expecting identifier reached EOF");
             }
             return tokens[current++];
         }
         public bool SkipUntil(string subject, bool mustFind=true) {
+            trim();
             if (!HasTokens()) {
                 if (mustFind) throw new Exception("While compiling, expecting \"" + subject + "\", reached EOF");
                 return false;
@@ -53,7 +57,11 @@ namespace Logic_Sim.Compiler
             return true;
 
         }
+        void trim() {
+            while (current < tokens.Length && tokens[current] == "") current++;
+        }
         public  bool HasTokens() {
+            trim();
             return current < tokens.Length;
         }
     }
