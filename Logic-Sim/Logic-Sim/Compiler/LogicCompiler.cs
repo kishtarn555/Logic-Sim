@@ -5,62 +5,82 @@ using System.Text.RegularExpressions;
 using Logic_Sim.Engine;
 using Logic_Sim.Engine.Primitives;
 using Logic_Sim.Engine.Extended.IO;
+using System.IO;
 
 namespace Logic_Sim.Compiler
 {
     class LogicCompiler {
         public bool debug = false;
         string code;
-        Tokenizer tokenizer;
         Circuit circuit;
         Dictionary<string, Component> components;
         public LogicCompiler(string _code) {
             code = _code;
         }
-
-        public Circuit Compile() {
-            components = new Dictionary<string, Component>();
+        public Circuit BeginCompile() {
+            Tokenizer tokenizer = new Tokenizer(code);
             circuit = new Circuit();
-            tokenizer = new Tokenizer(code);
-            
+            components = new Dictionary<string, Component>();
+            Compile(tokenizer,"") ;
+            return circuit;
+        }
+        void Compile(Tokenizer tokenizer, string root) {
+
+            int updated;
             while (tokenizer.HasTokens()) {
                 string command = tokenizer.NextString();
-                if (command=="ADD") {
-                    createPrimitive();
-                } else if (command=="CON") {
-                    connect();
-
-                } else if (command=="/*"){
+                updated = 0;
+                if (command == "ADD") {
+                    createPrimitive(tokenizer, root);
+                    updated = 2;
+                } else if (command == "CON") {
+                    connect(tokenizer, root);
+                    updated = 2;
+                } else if (command == "/*") {
                     tokenizer.SkipUntil("*/", true);
-                } else {
+                    updated = 0;
+                } else if (command == "IMP") {
+                    import(tokenizer, root); ;
+                    updated = 0;
+                } else if (command == "--print") {
+                    int when = tokenizer.NextInt();
+                    string name = root+"_"+tokenizer.NextIdentifier();
+                    circuit.DebugComplist.Push((when, components[name]));
+                } else { 
                     throw new Exception("Unknown instruction: "+command);
 
                 }
-
-            circuit.RunTicks(3);
+                circuit.RunTicks(updated);
             }
 
-            return circuit;
         }
-        void connect() {
+        void import(Tokenizer tokenizer, string root) {
+            string name = root+"_"+tokenizer.NextIdentifier();
+            if (components.ContainsKey(name)) {
+                throw new Exception("Redefinition of" + name + " as ALT");
+            }
+            string path = tokenizer.NextString();
+            Compile(new Tokenizer(File.ReadAllText(path)), name);
+        }
+        void connect(Tokenizer tokenizer,string root) {
             
             string src, des;
             int pinSrc, pinDes;
-            src = tokenizer.NextIdentifier();
+            src = root+"_"+tokenizer.NextIdentifier();
             pinSrc = tokenizer.NextInt();
-            des = tokenizer.NextIdentifier();
+            des = root+"_"+tokenizer.NextIdentifier();
             pinDes = tokenizer.NextInt();
-            if (components.ContainsKey(src) == false) throw new NullReferenceException("Unknown identifier as src " + src);
-            if (components.ContainsKey(des) == false) throw new NullReferenceException("Unknown identifier as des" + des);
+            if (components.ContainsKey(src) == false) throw new NullReferenceException("Unknown identifier as src: " + src);
+            if (components.ContainsKey(des) == false) throw new NullReferenceException("Unknown identifier as des: " + des);
             if (debug) {
                 Console.WriteLine("Compiling: Conection created " + src + " " + pinSrc + "," + des + " " + pinDes);
             }
             circuit.Connect(components[src], pinSrc, components[des], pinDes);
         }
-        void createPrimitive() {
+        void createPrimitive(Tokenizer tokenizer,string root) {
             Component component;
             string type = tokenizer.NextIdentifier();
-            string name = tokenizer.NextIdentifier();
+            string name = root+"_"+tokenizer.NextIdentifier();
             if (components.ContainsKey(name)) {
                 throw new Exception("While compailing, found duplicate identifier");
             }
@@ -81,9 +101,12 @@ namespace Logic_Sim.Compiler
                 component = new LOW(name);
             } else if (type == "OUT_BYTE") {
                 component = new BYTE_OUTPUT(name);
-            } else {
+            } else if (type == "KEY") {
+                string k = tokenizer.NextString();
+                    component = new KEY_READER(k,name);
+                } else {
 
-                throw new Exception("While compiling, found unknown primitive " + type);
+                    throw new Exception("While compiling, found unknown primitive " + type);
             }
 
             components.Add(name, component);

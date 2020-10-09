@@ -1,12 +1,22 @@
-﻿/* Code by hector ricardez */
+﻿/* Demo */
 ADD NOT clock
-ADD BUFFER buf 2500000
+ADD BUFFER buf 25
 ADD HIGH other
+ADD KEY keyA A
+ADD KEY keyB B
+ADD OUT_BYTE console
+IMP test EXAMPLES/nor_latch.lg
 CON clock 0 buf 0
 CON buf 0 clock 0
-ADD OUT_BYTE console
+CON buf 0 keyA 0
+CON buf 0 keyB 0
+CON keyA 0 test_R 0
+CON keyB 0 test_S 0
+CON test_Q 0 console 2
 CON clock 0 console 8
 CON clock 0 console 0
 CON other 0 console 1
+--print 200 test_O1
+--print 200 test_O2
 
 

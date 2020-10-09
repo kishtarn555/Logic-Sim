@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic_Sim.Utils
 {
-    struct Pair<P,Q>
+    class Pair<P,Q> 
     {
         public P first;
         public Q second;
@@ -12,6 +12,6 @@ namespace Logic_Sim.Utils
         public Pair(P p, Q q) {
             first = p;
             second = q;
-        }
+        } 
     }
 }

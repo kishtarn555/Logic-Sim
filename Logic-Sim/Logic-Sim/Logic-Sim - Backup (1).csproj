@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <UseWPF>true</UseWPF>
-
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Logic_Sim</RootNamespace>
   </PropertyGroup>
 
@@ -12,6 +10,12 @@
     <PlatformTarget>x64</PlatformTarget>
     <WarningLevel>1</WarningLevel>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="WindowsBase">
+      <HintPath>libs\WindowsBase.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="Examples\nor_latch.lg">

@@ -7,6 +7,7 @@ namespace Logic_Sim.Engine
     class Circuit {
         Priority_queue<Update> updates;
         List<Component> components;//Serves no purpourse, but maybe later
+        public Priority_queue<(long first, Component second)> DebugComplist;
         long curTick = 0;
         public long Tick {
             get { return curTick; }
@@ -15,6 +16,7 @@ namespace Logic_Sim.Engine
             updates = new Priority_queue<Update>();
             curTick = 0;
             components = new List<Component>();
+            DebugComplist = new Priority_queue<(long first, Component second)>();
         }
 
         public void RegisterComponent(Component component) {
@@ -41,7 +43,16 @@ namespace Logic_Sim.Engine
         }
 
         public void DoTick() {
-            if ((EngineState.DEBUG & EngineState.DFLAGS.PRINT_TICK) != 0) Console.WriteLine("Ticking " + curTick+"....");  
+            if ((EngineState.DEBUG & EngineState.DFLAGS.PRINT_TICK) != 0) {
+                Console.WriteLine("Ticking " + curTick + "....");
+                while (DebugComplist.Any() && DebugComplist.Top.first <= curTick) {
+                    Console.WriteLine(DebugComplist.Pop().second);
+                }
+            }
+            
+            while (DebugComplist.Any() && DebugComplist.Top.first <= curTick) {
+                Console.WriteLine(DebugComplist.Pop().second);
+            }
             Update currentUpdate;
             HashSet<Component> toUpdate = new HashSet<Component>();
             while (updates.Any() && updates.Top.tick<=curTick) {
@@ -81,7 +92,7 @@ namespace Logic_Sim.Engine
         }
 
         public void RunTicks(int ticks) {
-            if (ticks <= 0) throw new ArgumentOutOfRangeException("Circuid queued to run for " + ticks + " ticks, but its out of range");
+            if (ticks < 0) throw new ArgumentOutOfRangeException("Circuid queued to run for " + ticks + " ticks, but its out of range");
             for (int i = 0; i < ticks; i++) DoTick();
         }
 

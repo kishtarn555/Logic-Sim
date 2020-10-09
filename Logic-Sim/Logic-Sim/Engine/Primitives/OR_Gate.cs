@@ -10,7 +10,7 @@ namespace Logic_Sim.Engine.Primitives
 
         }
         public override void DoUpdate() {
-            nextstate[0] = renderedInputs[0] && renderedInputs[1];
+            nextstate[0] = renderedInputs[0] || renderedInputs[1];
         }
     }
 }

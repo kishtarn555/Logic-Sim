@@ -4,7 +4,7 @@ using System.Text;
 using Logic_Sim.Utils;
 namespace Logic_Sim.Engine
 {
-    abstract class Component {
+    abstract class Component:IComparable {
         protected int delay=1;
         public string name { get; private set; }
         public Port updatePin { get; private set; }
@@ -73,6 +73,10 @@ namespace Logic_Sim.Engine
             s += " -> ";
             for (int i = 0; i < outputstate.Length; i++) s += outputstate[i] ? '1' : '0';
             return s;
+        }
+
+        public int CompareTo(object obj) {
+            return 0;
         }
 
         public class Port
