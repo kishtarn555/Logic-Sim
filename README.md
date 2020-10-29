@@ -91,7 +91,7 @@ ALI &lt;alias&gt; &lt;originalName&gt;
     CON alias2 0 C 0
     
 # Notes
-If you have further questions,  there's examples in the file called examples.
+If you have further questions,  there are examples in the file called examples.
 
 The one in the subfolder called PC is a full project with multiple files and complex interactions. It emulates a computer.
   
