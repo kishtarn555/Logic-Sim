@@ -1,0 +1,104 @@
+﻿IMP b0 Examples/PC/RAM/B8.lg
+IMP b1 Examples/PC/RAM/B8.lg
+IMP bdata Examples/PC/Util/BUS_GATE.lg
+
+ADD BUFFER E 1
+
+ADD AND WR 
+ADD AND CLOCK 
+
+ADD AND A0
+CON A0 0 b0_A0 0
+CON A0 0 b1_A0 0
+
+ADD AND A1
+CON A1 0 b0_A1 0
+CON A1 0 b1_A1 0
+
+ADD AND A2
+CON A2 0 b0_A2 0
+CON A2 0 b1_A2 0
+
+ADD AND A3
+CON A3 0 b0_E 0
+
+ADD NOT not
+ADD AND nand
+CON A3		0 not 0
+CON not 	0 nand 0
+CON E       0 nand 1
+CON nand    0 b1_E 0
+
+
+CON E 0 WR 1
+CON E 0 CLOCK 1
+CON E 0 A0 1
+CON E 0 A1 1
+CON E 0 A2 1
+CON E 0 A3 1
+CON E 0 bdata_E 0
+
+CON WR 0 b0_WR 0
+CON CLOCK 0 b0_CLOCK 0
+CON WR 0 b1_WR 0
+CON CLOCK 0 b1_CLOCK 0
+
+
+
+
+ALI D0 bdata_I0
+ALI D1 bdata_I1
+ALI D2 bdata_I2
+ALI D3 bdata_I3
+ALI D4 bdata_I4
+ALI D5 bdata_I5
+ALI D6 bdata_I6
+ALI D7 bdata_I7
+
+CON bdata_O0 0 b0_D0 0
+CON bdata_O1 0 b0_D1 0
+CON bdata_O2 0 b0_D2 0
+CON bdata_O3 0 b0_D3 0
+CON bdata_O4 0 b0_D4 0
+CON bdata_O5 0 b0_D5 0
+CON bdata_O6 0 b0_D6 0
+CON bdata_O7 0 b0_D7 0
+					 
+CON bdata_O0 0 b1_D0 0
+CON bdata_O1 0 b1_D1 0
+CON bdata_O2 0 b1_D2 0
+CON bdata_O3 0 b1_D3 0
+CON bdata_O4 0 b1_D4 0
+CON bdata_O5 0 b1_D5 0
+CON bdata_O6 0 b1_D6 0
+CON bdata_O7 0 b1_D7 0
+
+
+ADD BUFFER O0 1
+ADD BUFFER O1 1
+ADD BUFFER O2 1
+ADD BUFFER O3 1
+ADD BUFFER O4 1
+ADD BUFFER O5 1
+ADD BUFFER O6 1
+ADD BUFFER O7 1
+
+CON b0_O0 0 O0 0
+CON b0_O1 0 O1 0
+CON b0_O2 0 O2 0
+CON b0_O3 0 O3 0
+CON b0_O4 0 O4 0
+CON b0_O5 0 O5 0
+CON b0_O6 0 O6 0
+CON b0_O7 0 O7 0
+
+CON b1_O0 0 O0 0
+CON b1_O1 0 O1 0
+CON b1_O2 0 O2 0
+CON b1_O3 0 O3 0
+CON b1_O4 0 O4 0
+CON b1_O5 0 O5 0
+CON b1_O6 0 O6 0
+CON b1_O7 0 O7 0
+
+

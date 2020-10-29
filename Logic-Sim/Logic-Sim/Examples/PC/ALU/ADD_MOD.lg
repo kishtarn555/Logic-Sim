@@ -1,0 +1,26 @@
+﻿IMP a0 Examples/PC/ALU/ADDER.lg
+IMP a1 Examples/PC/ALU/ADDER.lg
+IMP a2 Examples/PC/ALU/ADDER.lg
+IMP a3 Examples/PC/ALU/ADDER.lg
+IMP a4 Examples/PC/ALU/ADDER.lg
+IMP a5 Examples/PC/ALU/ADDER.lg
+IMP a6 Examples/PC/ALU/ADDER.lg
+IMP a7 Examples/PC/ALU/ADDER.lg
+
+IMP inA Examples/PC/Util/BUS_GATE.lg
+IMP inB Examples/PC/Util/BUS_GATE.lg
+
+ADD BUFFER E 1
+
+
+
+ALI O0 a0_O
+ALI O1 a1_O
+ALI O2 a2_O
+ALI O3 a3_O
+ALI O4 a4_O
+ALI O5 a5_O
+ALI O6 a6_O
+ALI O7 a7_O
+
+ADD LOW gnd

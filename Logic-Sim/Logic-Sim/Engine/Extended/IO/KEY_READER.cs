@@ -10,7 +10,7 @@ namespace Logic_Sim.Engine.Extended.IO
         Key KeyVal;
         public KEY_READER (string key,string name="[KEY_READER]"):base(1,1,name) {            
             KeyVal = KeyToKey.KeysCode[key];
-           
+            nextstate[0] = false;
         }
         public override void DoUpdate() {
             // nextstate[0];            System.Windows.Input.

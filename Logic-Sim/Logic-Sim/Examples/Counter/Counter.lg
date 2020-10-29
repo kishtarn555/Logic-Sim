@@ -1,0 +1,57 @@
+﻿IMP bit0 Examples/Counter/TFlipFlop.lg
+IMP bit1 Examples/Counter/TFlipFlop.lg
+IMP bit2 Examples/Counter/TFlipFlop.lg
+IMP bit3 Examples/Counter/TFlipFlop.lg
+IMP bit4 Examples/Counter/TFlipFlop.lg
+IMP bit5 Examples/Counter/TFlipFlop.lg
+IMP bit6 Examples/Counter/TFlipFlop.lg
+IMP bit7 Examples/Counter/TFlipFlop.lg 
+
+ADD NOT CLOCK
+ADD BUFFER DELAY 2000
+
+CON CLOCK 0 DELAY 0
+CON DELAY 0 CLOCK 0
+
+ADD OUT_BYTE DISPLAY
+
+CON CLOCK 0 DISPLAY 8
+
+
+CON bit0_Q 0 bit1_T 0
+CON bit1_Q 0 bit2_T 0
+CON bit2_Q 0 bit3_T 0
+CON bit3_Q 0 bit4_T 0
+CON bit4_Q 0 bit5_T 0
+CON bit5_Q 0 bit6_T 0
+CON bit6_Q 0 bit7_T 0
+
+CON bit0_Q 0 bit1_CLOCK 0
+CON bit1_Q 0 bit2_CLOCK 0
+CON bit2_Q 0 bit3_CLOCK 0
+CON bit3_Q 0 bit4_CLOCK 0
+CON bit4_Q 0 bit5_CLOCK 0
+CON bit5_Q 0 bit6_CLOCK 0
+CON bit6_Q 0 bit7_CLOCK 0
+
+CON bit0_QB 0 DISPLAY 7
+CON bit1_QB 0 DISPLAY 6
+CON bit2_QB 0 DISPLAY 5
+CON bit3_QB 0 DISPLAY 4
+CON bit4_QB 0 DISPLAY 3
+CON bit5_QB 0 DISPLAY 2
+CON bit6_QB 0 DISPLAY 1
+CON bit7_QB 0 DISPLAY 0
+
+
+ADD HIGH hi
+
+ADD NOT CLOCK2
+ADD BUFFER DELAY2 2000
+
+CON CLOCK2 0 DELAY2 0
+CON DELAY2 0 CLOCK2 0
+
+ADD KEY keyA A
+ CON CLOCK2 0 bit0_CLOCK 0
+ CON hi 0 bit0_T 0 

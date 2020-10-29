@@ -5,7 +5,9 @@ using System.Text.RegularExpressions;
 using Logic_Sim.Engine;
 using Logic_Sim.Engine.Primitives;
 using Logic_Sim.Engine.Extended.IO;
+using Logic_Sim.Engine.Extended.AdvancedGates;
 using System.IO;
+using System.CodeDom;
 
 namespace Logic_Sim.Compiler
 {
@@ -44,10 +46,23 @@ namespace Logic_Sim.Compiler
                     updated = 0;
                 } else if (command == "--print") {
                     int when = tokenizer.NextInt();
-                    string name = root+"_"+tokenizer.NextIdentifier();
+                    string name = root + "_" + tokenizer.NextIdentifier();
                     circuit.DebugComplist.Push((when, components[name]));
+                } else if (command == "ALI") {
+                    string alias, original;
+                    alias = root+"_"+tokenizer.NextIdentifier();
+                    original = root+"_"+tokenizer.NextIdentifier();
+                    if (debug)
+                        Console.WriteLine("a" + alias + " " + original);
+                    if (components.ContainsKey(alias)) throw new Exception("Repeated alias " + alias + ", renaming " + original);
+                    if (!components.ContainsKey(original)) throw new Exception("Trying to give alias: " + alias + ", but" + original+" is missing");
+                    components.Add(alias, components[original]);
+                    
+                } else if (command == "--printTICK") {
+                    string text = tokenizer.NextString();
+                    Console.WriteLine("printing: " + text + " " + circuit.Tick);
                 } else { 
-                    throw new Exception("Unknown instruction: "+command);
+                    throw new Exception("["+root+"] Unknown instruction: "+command);
 
                 }
                 circuit.RunTicks(updated);
@@ -70,8 +85,8 @@ namespace Logic_Sim.Compiler
             pinSrc = tokenizer.NextInt();
             des = root+"_"+tokenizer.NextIdentifier();
             pinDes = tokenizer.NextInt();
-            if (components.ContainsKey(src) == false) throw new NullReferenceException("Unknown identifier as src: " + src);
-            if (components.ContainsKey(des) == false) throw new NullReferenceException("Unknown identifier as des: " + des);
+            if (components.ContainsKey(src) == false) throw new NullReferenceException("["+root+"] Unknown identifier as src: " + src);
+            if (components.ContainsKey(des) == false) throw new NullReferenceException("["+root+"] Unknown identifier as des: " + des);
             if (debug) {
                 Console.WriteLine("Compiling: Conection created " + src + " " + pinSrc + "," + des + " " + pinDes);
             }
@@ -82,7 +97,7 @@ namespace Logic_Sim.Compiler
             string type = tokenizer.NextIdentifier();
             string name = root+"_"+tokenizer.NextIdentifier();
             if (components.ContainsKey(name)) {
-                throw new Exception("While compailing, found duplicate identifier");
+                throw new Exception("While compailing, found duplicate identifier: "+name);
             }
             if (type=="AND") {
                 component = new AND_Gate(name);
@@ -90,8 +105,9 @@ namespace Logic_Sim.Compiler
 
                 component = new OR_Gate(name);
             } else if (type == "NOT") {
-
                 component = new NOT_Gate(name);
+            } else if (type == "XOR") {
+                component = new XOR_Gate(name);
             } else if (type == "BUFFER") {
                 int data = tokenizer.NextInt();
                 component = new BUFFER_Gate(data, name);
@@ -103,10 +119,12 @@ namespace Logic_Sim.Compiler
                 component = new BYTE_OUTPUT(name);
             } else if (type == "KEY") {
                 string k = tokenizer.NextString();
-                    component = new KEY_READER(k,name);
-                } else {
+                component = new KEY_READER(k, name);
+            }else if (type == "JK") {
+                component = new JK_Gate(name);
+            } else {
 
-                    throw new Exception("While compiling, found unknown primitive " + type);
+                throw new Exception("While compiling, found unknown primitive " + type);
             }
 
             components.Add(name, component);

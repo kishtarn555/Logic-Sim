@@ -1,0 +1,27 @@
+﻿ADD BUFFER T  1
+ADD BUFFER WR 1
+ADD BUFFER E  1
+ADD BUFFER CLOCK 1
+ADD JK data
+ADD NOT nt
+ADD BUFFER bt  1
+ADD AND cand
+ADD AND cand2
+ADD AND OUTPUT
+
+
+CON T 0 nt 0
+CON T 0 bt 0
+
+CON bt 0 data 0
+CON nt 0 data 1
+
+CON CLOCK 0 cand 0
+CON E 0 cand 1
+
+CON cand 0 cand2 0
+CON WR 0 cand2 1
+CON cand2 0 data 2
+
+CON data 0 OUTPUT 0
+CON E 0 OUTPUT 1 

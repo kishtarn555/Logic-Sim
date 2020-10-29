@@ -1,0 +1,12 @@
+﻿ADD BUFFER CLOCK    1
+ADD BUFFER T        1
+ADD BUFFER Q        10
+ADD BUFFER QB       10
+ADD JK jk
+
+CON T 0 jk 0
+CON T 0 jk 1
+CON CLOCK 0 jk 2
+
+CON jk 0 Q 0
+CON jk 1 QB 0

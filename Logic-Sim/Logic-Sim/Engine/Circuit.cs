@@ -43,6 +43,7 @@ namespace Logic_Sim.Engine
         }
 
         public void DoTick() {
+            if (updates.Any() == false) return;
             if ((EngineState.DEBUG & EngineState.DFLAGS.PRINT_TICK) != 0) {
                 Console.WriteLine("Ticking " + curTick + "....");
                 while (DebugComplist.Any() && DebugComplist.Top.first <= curTick) {
@@ -74,6 +75,7 @@ namespace Logic_Sim.Engine
             foreach (Component comp in toUpdate) {
                 comp.Propagate(this);
             }
+            
             curTick++;
 
         }

@@ -1,0 +1,15 @@
+﻿/* Code by hector ricardez */
+ADD BUFFER R 1
+ADD BUFFER S 1
+ADD OR O1
+ADD OR O2
+ADD NOT Q
+ADD NOT QB
+CON R 0 O1 0
+CON S 0 O2 0
+CON O1 0 Q 0
+CON O2 0 QB 0
+CON Q 0 O2 1
+CON QB 0 O1 1
+
+

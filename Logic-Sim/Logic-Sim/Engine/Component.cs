@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Text;
 using Logic_Sim.Utils;
@@ -54,6 +55,7 @@ namespace Logic_Sim.Engine
         }
         
         public virtual void Propagate (Circuit circuit){
+            if (delay <= 0) throw new Exception("Delay is to short! " + delay);
             for (int i=0; i < outputstate.Length; i++) {
                 if (outputstate[i] == nextstate[i]) continue;
                 foreach (Port port in outputs[i]) {
