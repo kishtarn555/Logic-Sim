@@ -94,7 +94,8 @@ ALI &lt;alias&gt; &lt;originalName&gt;
 If you have further questions,  there are examples in the file called examples.
 
 The one in the subfolder called PC is a full project with multiple files and complex interactions. It emulates a computer.
-  
+ 
+ It only works on windows due to IO, you may wanna change IO
   
 
 
