@@ -1,0 +1,56 @@
+﻿IMP data Examples/PC/RAM/BYTERAM.lg
+IMP gate Examples/PC/Util/BUS_GATE.lg
+
+ADD HIGH HI
+ADD BUFFER CLOCK 1
+
+
+ADD BUFFER READ 1
+ADD BUFFER WRITE 1
+ADD BUFFER CLEAR 1
+
+ADD JK reading
+ADD JK writing
+
+CON READ 0 reading 0
+CON READ 0 reading 2
+
+CON WRITE 0 writing 0
+CON WRITE 0 writing 2
+
+CON CLEAR 0 reading 1
+CON CLEAR 0 reading 2
+CON CLEAR 0 writing 1
+CON CLEAR 0 writing 2
+
+ALI I0 data_I0
+ALI I1 data_I1
+ALI I2 data_I2
+ALI I3 data_I3
+ALI I4 data_I4
+ALI I5 data_I5
+ALI I6 data_I6
+ALI I7 data_I7
+
+ALI O0 gate_O0
+ALI O1 gate_O1
+ALI O2 gate_O2
+ALI O3 gate_O3
+ALI O4 gate_O4
+ALI O5 gate_O5
+ALI O6 gate_O6
+ALI O7 gate_O7
+
+CON data_O0 0 gate_I0 0
+CON data_O1 0 gate_I1 0
+CON data_O2 0 gate_I2 0
+CON data_O3 0 gate_I3 0
+CON data_O4 0 gate_I4 0
+CON data_O5 0 gate_I5 0
+CON data_O6 0 gate_I6 0
+CON data_O7 0 gate_I7 0
+
+CON HI 0 data_E 0
+CON CLOCK 0 data_CLOCK 0
+CON reading 0 gate_E 0
+CON writing 0 data_WR 0

@@ -1,0 +1,42 @@
+﻿ADD JK isReady
+ADD JK isActive
+
+ADD BUFFER CLOCK 1
+ADD BUFFER NEXT 1
+ADD BUFFER ACTIVE 1
+ADD BUFFER ENABLE 1
+ADD BUFFER DISABLE 1
+
+
+
+ADD NOT nClock
+CON CLOCK 0 nClock 0
+
+CON ENABLE 0 isReady 0
+CON ENABLE 0 isReady 2
+
+CON DISABLE 0 isReady 1
+CON DISABLE 0 isReady 2
+
+ADD AND doActivate
+CON isReady 0 doActivate 0
+CON CLOCK 0 doActivate 1
+CON doActivate 0 isActive 0
+CON doActivate 0 isActive 2
+
+CON isActive 0 ACTIVE 0
+
+CON doActivate 0 isReady 1
+CON doActivate 0 isReady 2
+
+ADD AND foward
+ADD BUFFER fwDelay 2
+CON isActive 0 foward 0
+CON nClock 0 foward 1
+
+CON foward 0 fwDelay 0
+
+CON  fwDelay 0 isActive 1
+CON  fwDelay 0 isActive 2
+CON	 foward 0 NEXT 0
+

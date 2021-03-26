@@ -1,0 +1,704 @@
+﻿/* Modules */
+	IMP alu Examples/PC/ALU/ALU.lg
+	IMP enableRise Examples/PC/Util/RISE.lg
+	IMP isNotZero Examples/PC/Util/BUS_OR.lg
+	ADD ROM program
+	ADD HIGH HI
+	ADD LOW LO
+
+	ADD NOT inClock
+	ADD BUFFER inDelay 100
+	CON inClock 0 inDelay 0
+	CON inDelay 0 inClock 0
+/* Registers */
+	IMP regA Examples/PC/Control/Register.lg
+	IMP regB Examples/PC/Control/Register.lg
+	IMP regC Examples/PC/Control/Register.lg
+	
+	IMP loAdress Examples/PC/Control/Register.lg
+	IMP hiAdress Examples/PC/Control/Register.lg
+	IMP loAdressNext Examples/PC/Control/Register.lg
+	IMP hiAdressNext Examples/PC/Control/Register.lg
+
+	/* inClock */
+	CON inClock 0 regA_CLOCK 0
+	CON inClock 0 regB_CLOCK 0
+	CON inClock 0 regC_CLOCK 0
+
+	
+	CON inClock 0 loAdress_CLOCK 0
+	CON inClock 0 hiAdress_CLOCK 0
+	CON inClock 0 loAdressNext_CLOCK 0
+	CON inClock 0 hiAdressNext_CLOCK 0
+
+/* Inputs */
+	ADD BUFFER CLOCK 1
+	ADD BUFFER ENABLE 1
+	ADD BUFFER INPUT0 1
+	ADD BUFFER INPUT1 1
+	ADD BUFFER INPUT2 1
+	ADD BUFFER INPUT3 1
+	ADD BUFFER INPUT4 1
+	ADD BUFFER INPUT5 1
+	ADD BUFFER INPUT6 1
+	ADD BUFFER INPUT7 1
+
+	ADD BUFFER WAKE 1
+/* Outputs */
+	ADD BUFFER WAITING 1
+	ADD BUFFER OUTPUT0 1
+	ADD BUFFER OUTPUT1 1
+	ADD BUFFER OUTPUT2 1
+	ADD BUFFER OUTPUT3 1
+	ADD BUFFER OUTPUT4 1
+	ADD BUFFER OUTPUT5 1
+	ADD BUFFER OUTPUT6 1
+	ADD BUFFER OUTPUT7 1
+/* program connections */
+	CON loAdress_O0 0 program 0
+	CON loAdress_O1 0 program 1
+	CON loAdress_O2 0 program 2
+	CON loAdress_O3 0 program 3
+	CON loAdress_O4 0 program 4
+	CON loAdress_O5 0 program 5
+	CON loAdress_O6 0 program 6
+	CON loAdress_O7 0 program 7
+	CON hiAdress_O0 0 program 8
+	CON hiAdress_O1 0 program 9
+	CON hiAdress_O2 0 program 10
+	CON hiAdress_O3 0 program 11
+	CON hiAdress_O4 0 program 12
+	CON hiAdress_O5 0 program 13
+	CON hiAdress_O6 0 program 14
+	CON HI 0 program 15
+	ADD BUFFER prog0 1
+	ADD BUFFER prog1 1
+	ADD BUFFER prog2 1
+	ADD BUFFER prog3 1
+	ADD BUFFER prog4 1
+	ADD BUFFER prog5 1
+	ADD BUFFER prog6 1
+	ADD BUFFER prog7 1
+	ADD NOT nprog0 
+	ADD NOT nprog1 
+	ADD NOT nprog2 
+	ADD NOT nprog3 
+	ADD NOT nprog4 
+	ADD NOT nprog5 
+	ADD NOT nprog6 
+	ADD NOT nprog7 
+	CON program 0 prog0 0
+	CON program 1 prog1 0
+	CON program 2 prog2 0
+	CON program 3 prog3 0
+	CON program 4 prog4 0
+	CON program 5 prog5 0
+	CON program 6 prog6 0
+	CON program 7 prog7 0
+	CON program 0 nprog0 0
+	CON program 1 nprog1 0
+	CON program 2 nprog2 0
+	CON program 3 nprog3 0
+	CON program 4 nprog4 0
+	CON program 5 nprog5 0
+	CON program 6 nprog6 0
+	CON program 7 nprog7 0
+
+	IMP pAdderLO Examples/PC/ALU/ADD_MOD.lg
+	IMP pAdderHI Examples/PC/ALU/ADD_MOD.lg
+
+	CON HI 0 pAdderLO_E 0
+	CON HI 0 pAdderHI_E 0
+	
+	CON loAdress_O0 0 pAdderLO_A0 0
+	CON loAdress_O1 0 pAdderLO_A1 0
+	CON loAdress_O2 0 pAdderLO_A2 0
+	CON loAdress_O3 0 pAdderLO_A3 0
+	CON loAdress_O4 0 pAdderLO_A4 0
+	CON loAdress_O5 0 pAdderLO_A5 0
+	CON loAdress_O6 0 pAdderLO_A6 0
+	CON loAdress_O7 0 pAdderLO_A7 0
+
+	
+	CON hiAdress_O0 0 pAdderHI_A0 0
+	CON hiAdress_O1 0 pAdderHI_A1 0
+	CON hiAdress_O2 0 pAdderHI_A2 0
+	CON hiAdress_O3 0 pAdderHI_A3 0
+	CON hiAdress_O4 0 pAdderHI_A4 0
+	CON hiAdress_O5 0 pAdderHI_A5 0
+	CON hiAdress_O6 0 pAdderHI_A6 0
+	CON hiAdress_O7 0 pAdderHI_A7 0
+
+	CON HI 0 pAdderLO_B0 0
+	CON LO 0 pAdderLO_B1 0
+	CON LO 0 pAdderLO_B2 0
+	CON LO 0 pAdderLO_B3 0
+	CON LO 0 pAdderLO_B4 0
+	CON LO 0 pAdderLO_B5 0
+	CON LO 0 pAdderLO_B6 0
+	CON LO 0 pAdderLO_B7 0
+
+	CON pAdderLO_CFLAG 0 pAdderHI_B0 0
+	CON LO 0 pAdderHI_B1 0
+	CON LO 0 pAdderHI_B2 0
+	CON LO 0 pAdderHI_B3 0
+	CON LO 0 pAdderHI_B4 0
+	CON LO 0 pAdderHI_B5 0
+	CON LO 0 pAdderHI_B6 0
+	CON LO 0 pAdderHI_B7 0
+
+	CON pAdderLO_O0 0 loAdressNext_I0 0
+	CON pAdderLO_O1 0 loAdressNext_I1 0
+	CON pAdderLO_O2 0 loAdressNext_I2 0
+	CON pAdderLO_O3 0 loAdressNext_I3 0
+	CON pAdderLO_O4 0 loAdressNext_I4 0
+	CON pAdderLO_O5 0 loAdressNext_I5 0
+	CON pAdderLO_O6 0 loAdressNext_I6 0
+	CON pAdderLO_O7 0 loAdressNext_I7 0
+
+	CON pAdderHI_O0 0 hiAdressNext_I0 0
+	CON pAdderHI_O1 0 hiAdressNext_I1 0
+	CON pAdderHI_O2 0 hiAdressNext_I2 0
+	CON pAdderHI_O3 0 hiAdressNext_I3 0
+	CON pAdderHI_O4 0 hiAdressNext_I4 0
+	CON pAdderHI_O5 0 hiAdressNext_I5 0
+	CON pAdderHI_O6 0 hiAdressNext_I6 0
+	CON pAdderHI_O7 0 hiAdressNext_I7 0
+
+	CON loAdressNext_O0 0 loAdress_I0 0 
+	CON loAdressNext_O1 0 loAdress_I1 0
+	CON loAdressNext_O2 0 loAdress_I2 0
+	CON loAdressNext_O3 0 loAdress_I3 0
+	CON loAdressNext_O4 0 loAdress_I4 0
+	CON loAdressNext_O5 0 loAdress_I5 0
+	CON loAdressNext_O6 0 loAdress_I6 0
+	CON loAdressNext_O7 0 loAdress_I7 0
+
+	CON hiAdressNext_O0 0 hiAdress_I0 0
+	CON hiAdressNext_O1 0 hiAdress_I1 0
+	CON hiAdressNext_O2 0 hiAdress_I2 0
+	CON hiAdressNext_O3 0 hiAdress_I3 0
+	CON hiAdressNext_O4 0 hiAdress_I4 0
+	CON hiAdressNext_O5 0 hiAdress_I5 0
+	CON hiAdressNext_O6 0 hiAdress_I6 0
+	CON hiAdressNext_O7 0 hiAdress_I7 0
+
+/* Control gates */
+	/* Declare */
+		ADD JK pRead
+		IMP pGate Examples/PC/Util/BUS_GATE.lg
+			CON program 0 pGate_I0 0
+			CON program 1 pGate_I1 0
+			CON program 2 pGate_I2 0
+			CON program 3 pGate_I3 0
+			CON program 4 pGate_I4 0
+			CON program 5 pGate_I5 0
+			CON program 6 pGate_I6 0
+			CON program 7 pGate_I7 0
+			CON pRead 0 pGate_E 0
+
+			
+		ADD JK pRead2
+		IMP pGate2 Examples/PC/Util/BUS_GATE.lg
+			CON program 0 pGate2_I0 0
+			CON program 1 pGate2_I1 0
+			CON program 2 pGate2_I2 0
+			CON program 3 pGate2_I3 0
+			CON program 4 pGate2_I4 0
+			CON program 5 pGate2_I5 0
+			CON program 6 pGate2_I6 0
+			CON program 7 pGate2_I7 0
+			CON pRead2 0 pGate2_E 0
+	/* ALU */
+		ADD JK aluEnable
+	/* WATING */
+		ADD JK waiting
+
+			
+/* INNER CONECTIONS */
+	/* ROM TO C */
+		CON pGate_O0 0 regC_I0 0
+		CON pGate_O1 0 regC_I1 0
+		CON pGate_O2 0 regC_I2 0
+		CON pGate_O3 0 regC_I3 0
+		CON pGate_O4 0 regC_I4 0
+		CON pGate_O5 0 regC_I5 0
+		CON pGate_O6 0 regC_I6 0
+		CON pGate_O7 0 regC_I7 0
+
+	/* C to A */
+		CON regC_O0 0 regA_I0 0 
+		CON regC_O1 0 regA_I1 0 
+		CON regC_O2 0 regA_I2 0 
+		CON regC_O3 0 regA_I3 0 
+		CON regC_O4 0 regA_I4 0 
+		CON regC_O5 0 regA_I5 0 
+		CON regC_O6 0 regA_I6 0 
+		CON regC_O7 0 regA_I7 0 
+
+	/* C to B */
+		CON regC_O0 0 regB_I0 0 
+		CON regC_O1 0 regB_I1 0 
+		CON regC_O2 0 regB_I2 0 
+		CON regC_O3 0 regB_I3 0 
+		CON regC_O4 0 regB_I4 0 
+		CON regC_O5 0 regB_I5 0 
+		CON regC_O6 0 regB_I6 0 
+		CON regC_O7 0 regB_I7 0
+
+	/* rom A B aluEnable to ALU to C */
+		CON aluEnable 0 alu_E 0
+		CON prog0 0 alu_OP0 0
+		CON prog1 0 alu_OP1 0
+		CON prog2 0 alu_OP2 0
+
+		CON regA_O0 0 alu_A0 0
+		CON regA_O1 0 alu_A1 0
+		CON regA_O2 0 alu_A2 0
+		CON regA_O3 0 alu_A3 0
+		CON regA_O4 0 alu_A4 0
+		CON regA_O5 0 alu_A5 0
+		CON regA_O6 0 alu_A6 0
+		CON regA_O7 0 alu_A7 0
+
+		CON regB_O0 0 alu_B0 0
+		CON regB_O1 0 alu_B1 0
+		CON regB_O2 0 alu_B2 0
+		CON regB_O3 0 alu_B3 0
+		CON regB_O4 0 alu_B4 0
+		CON regB_O5 0 alu_B5 0
+		CON regB_O6 0 alu_B6 0
+		CON regB_O7 0 alu_B7 0
+
+		CON alu_O0 0 regC_I0 0 
+		CON alu_O1 0 regC_I1 0 
+		CON alu_O2 0 regC_I2 0 
+		CON alu_O3 0 regC_I3 0 
+		CON alu_O4 0 regC_I4 0 
+		CON alu_O5 0 regC_I5 0 
+		CON alu_O6 0 regC_I6 0 
+		CON alu_O7 0 regC_I7 0 
+	/* C to zeroFlags */
+		CON HI 0 isNotZero_E 0
+		CON regC_data_O0 0 isNotZero_A0 0
+		CON regC_data_O1 0 isNotZero_A1 0
+		CON regC_data_O2 0 isNotZero_A2 0
+		CON regC_data_O3 0 isNotZero_A3 0
+		CON regC_data_O4 0 isNotZero_A4 0
+		CON regC_data_O5 0 isNotZero_A5 0
+		CON regC_data_O6 0 isNotZero_A6 0
+		CON regC_data_O7 0 isNotZero_A7 0
+	/* ROM -> loData */
+		CON pGate2_O0 0 loAdress_I0 0
+		CON pGate2_O1 0 loAdress_I1 0
+		CON pGate2_O2 0 loAdress_I2 0
+		CON pGate2_O3 0 loAdress_I3 0
+		CON pGate2_O4 0 loAdress_I4 0
+		CON pGate2_O5 0 loAdress_I5 0
+		CON pGate2_O6 0 loAdress_I6 0
+		CON pGate2_O7 0 loAdress_I7 0
+	/* ROM -> hiAdress */
+		
+		CON pGate2_O0 0 hiAdress_I0 0
+		CON pGate2_O1 0 hiAdress_I1 0
+		CON pGate2_O2 0 hiAdress_I2 0
+		CON pGate2_O3 0 hiAdress_I3 0
+		CON pGate2_O4 0 hiAdress_I4 0
+		CON pGate2_O5 0 hiAdress_I5 0
+		CON pGate2_O6 0 hiAdress_I6 0
+		CON pGate2_O7 0 hiAdress_I7 0
+/* Decoders */
+
+	ADD BUFFER enableDecoders 1
+	ADD BUFFER disableDecoders 1
+	IMP readRomDecoder		Examples/PC/Util/BUS_AND.lg
+	IMP aluDecoder			Examples/PC/Util/BUS_AND.lg
+	IMP loadAfromCDecoder	Examples/PC/Util/BUS_AND.lg
+	IMP loadBfromCDecoder	Examples/PC/Util/BUS_AND.lg
+	IMP doAluDecoder		Examples/PC/Util/BUS_AND.lg
+	IMP ifNZeroDecoder		Examples/PC/Util/BUS_AND.lg
+	IMP jmpNZeroDecoder		Examples/PC/Util/BUS_AND.lg
+
+	/* readRomDecoder */
+	CON CLOCK 0 readRomDecoder_E 0
+
+	CON nprog0 0 readRomDecoder_A0 0
+	CON nprog1 0 readRomDecoder_A1 0
+	CON nprog2 0 readRomDecoder_A2 0
+	CON nprog3 0 readRomDecoder_A3 0
+	CON nprog4 0 readRomDecoder_A4 0
+	CON prog5 0 readRomDecoder_A5 0
+	CON prog6 0 readRomDecoder_A6 0
+	CON prog7 0 readRomDecoder_A7 0
+
+	/* loadAfromCDecoder */
+	CON CLOCK 0 loadAfromCDecoder_E 0
+
+	CON prog0 0		loadAfromCDecoder_A0 0
+	CON nprog1 0	loadAfromCDecoder_A1 0
+	CON nprog2 0	loadAfromCDecoder_A2 0
+	CON nprog3 0	loadAfromCDecoder_A3 0
+	CON prog4 0		loadAfromCDecoder_A4 0
+	CON nprog5 0	loadAfromCDecoder_A5 0
+	CON nprog6 0	loadAfromCDecoder_A6 0
+	CON prog7 0		loadAfromCDecoder_A7 0 
+
+	/* loadBfromCDecoder */
+	CON CLOCK 0 loadBfromCDecoder_E 0
+
+	CON prog0 0		loadBfromCDecoder_A0 0
+	CON nprog1 0	loadBfromCDecoder_A1 0
+	CON nprog2 0	loadBfromCDecoder_A2 0
+	CON prog3 0		loadBfromCDecoder_A3 0
+	CON prog4 0		loadBfromCDecoder_A4 0
+	CON nprog5 0	loadBfromCDecoder_A5 0
+	CON nprog6 0	loadBfromCDecoder_A6 0
+	CON prog7 0		loadBfromCDecoder_A7 0 
+
+	/* doAluDecoder */
+	CON CLOCK 0 doAluDecoder_E 0
+
+	CON HI 0		doAluDecoder_A0 0
+	CON HI 0		doAluDecoder_A1 0
+	CON HI 0		doAluDecoder_A2 0
+	CON nprog3 0	doAluDecoder_A3 0
+	CON nprog4 0	doAluDecoder_A4 0
+	CON prog5 0		doAluDecoder_A5 0
+	CON nprog6 0	doAluDecoder_A6 0
+	CON prog7 0		doAluDecoder_A7 0 
+
+	/* ifNZeroDecoder */
+	CON CLOCK 0 ifNZeroDecoder_E 0
+
+	CON nprog0 0	ifNZeroDecoder_A0 0
+	CON nprog1 0	ifNZeroDecoder_A1 0
+	CON nprog2 0	ifNZeroDecoder_A2 0
+	CON nprog3 0	ifNZeroDecoder_A3 0
+	CON nprog4 0	ifNZeroDecoder_A4 0
+	CON prog5 0		ifNZeroDecoder_A5 0
+	CON prog6 0		ifNZeroDecoder_A6 0
+	CON nprog7 0	ifNZeroDecoder_A7 0 
+
+	/* ifNZeroDecoder */
+	CON CLOCK 0 jmpNZeroDecoder_E 0
+
+	CON prog0 0		jmpNZeroDecoder_A0 0
+	CON nprog1 0	jmpNZeroDecoder_A1 0
+	CON nprog2 0	jmpNZeroDecoder_A2 0
+	CON nprog3 0	jmpNZeroDecoder_A3 0
+	CON nprog4 0	jmpNZeroDecoder_A4 0
+	CON prog5 0		jmpNZeroDecoder_A5 0
+	CON prog6 0		jmpNZeroDecoder_A6 0
+	CON nprog7 0	jmpNZeroDecoder_A7 0 
+
+/* Stepper */
+	IMP fowardPCStep0 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardPCStep1 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardPCStep2 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardPCStep3 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardPCStep4 Examples/PC/Control/HILO_STEP.lg
+	
+	IMP fowardCPUStep0 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardCPUStepM0 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardCPUStepM1 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardCPUStepM2 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardCPUStepM3 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardCPUStepM4 Examples/PC/Control/HILO_STEP.lg
+	IMP fowardCPUStep1 Examples/PC/Control/HILO_STEP.lg
+
+	IMP readRomStep0 Examples/PC/Control/HILO_STEP.lg
+	IMP readRomStepM0 Examples/PC/Control/HILO_STEP.lg
+	IMP readRomStepM1 Examples/PC/Control/HILO_STEP.lg
+	IMP readRomStepM2 Examples/PC/Control/HILO_STEP.lg
+	IMP readRomStepM3 Examples/PC/Control/HILO_STEP.lg
+	IMP readRomStepM4 Examples/PC/Control/HILO_STEP.lg
+	IMP readRomStep1 Examples/PC/Control/HILO_STEP.lg
+	IMP readRomStep2 Examples/PC/Control/HILO_STEP.lg
+
+	IMP loadAfromCStep0 Examples/PC/Control/HILO_STEP.lg
+	IMP loadAfromCStep1 Examples/PC/Control/HILO_STEP.lg
+	IMP loadAfromCStep2 Examples/PC/Control/HILO_STEP.lg
+
+	IMP loadBfromCStep0 Examples/PC/Control/HILO_STEP.lg
+	IMP loadBfromCStep1 Examples/PC/Control/HILO_STEP.lg
+	IMP loadBfromCStep2 Examples/PC/Control/HILO_STEP.lg
+
+	IMP doAluStep0 Examples/PC/Control/HILO_STEP.lg
+	IMP doAluStep1 Examples/PC/Control/HILO_STEP.lg
+	IMP doAluStep2 Examples/PC/Control/HILO_STEP.lg
+	
+
+	IMP ifNZeroStep0 Examples/PC/Control/HILO_STEP.lg
+	IMP ifNZeroStepM0 Examples/PC/Control/HILO_STEP.lg
+	IMP ifNZeroStepM1 Examples/PC/Control/HILO_STEP.lg
+	IMP ifNZeroStepM2 Examples/PC/Control/HILO_STEP.lg
+	IMP ifNZeroStepM3 Examples/PC/Control/HILO_STEP.lg
+	IMP ifNZeroStepM4 Examples/PC/Control/HILO_STEP.lg
+
+	IMP jmpNZeroStep0 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepA0 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepA1 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepA2 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepA3 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepA4 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStep1 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStep2 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStep3 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepB0 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepB1 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepB2 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepB3 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStepB4 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStep4 Examples/PC/Control/HILO_STEP.lg
+	IMP jmpNZeroStep5 Examples/PC/Control/HILO_STEP.lg
+
+/* Init Stepper */
+	/* Enabler */
+		CON ENABLE 0 enableRise_IN 0
+		CON ENABLE 0 loAdress_READ 0
+		CON ENABLE 0 hiAdress_READ 0
+		CON enableRise_OUT 0 enableDecoders 0
+
+		CON enableDecoders 0 readRomStep0_ENABLE 0
+		CON enableDecoders 0 loadAfromCStep0_ENABLE 0 
+		CON enableDecoders 0 loadBfromCStep0_ENABLE 0 
+		CON enableDecoders 0 doAluStep0_ENABLE 0 
+		CON enableDecoders 0 ifNZeroStep0_ENABLE 0 
+		CON enableDecoders 0 jmpNZeroStep0_ENABLE 0 
+
+		ADD OUT_BYTE Cycle
+		CON enableDecoders 0 Cycle 8
+		CON prog0 0 Cycle 0
+		CON prog1 0 Cycle 1
+		CON prog2 0 Cycle 2
+		CON prog3 0 Cycle 3
+		CON prog4 0 Cycle 4
+		CON prog5 0 Cycle 5
+		CON prog6 0 Cycle 6
+		CON prog7 0 Cycle 7
+	/* Disabler */
+		CON disableDecoders 0 readRomStep0_DISABLE 0
+		CON disableDecoders 0 loadAfromCStep0_DISABLE 0
+		CON disableDecoders 0 loadBfromCStep0_DISABLE 0
+		CON disableDecoders 0 doAluStep0_DISABLE 0
+		CON disableDecoders 0 ifNZeroStep0_DISABLE 0
+		CON disableDecoders 0 jmpNZeroStep0_DISABLE 0
+	/* Decode */
+		CON readRomDecoder_OUT 0 readRomStep0_CLOCK 0
+		CON loadAfromCDecoder_OUT 0 loadAfromCStep0_CLOCK 0
+		CON loadBfromCDecoder_OUT 0 loadBfromCStep0_CLOCK 0
+		CON doAluDecoder_OUT 0 doAluStep0_CLOCK 0
+		CON ifNZeroDecoder_OUT 0 ifNZeroStep0_CLOCK 0
+		CON jmpNZeroDecoder_OUT 0 jmpNZeroStep0_CLOCK 0
+/* STEP CLOCK */
+
+	CON CLOCK 0 fowardPCStep0_CLOCK 0
+	CON CLOCK 0 fowardPCStep1_CLOCK 0
+	CON CLOCK 0 fowardPCStep2_CLOCK 0
+	CON CLOCK 0 fowardPCStep3_CLOCK 0
+	CON CLOCK 0 fowardPCStep4_CLOCK 0
+
+	
+	CON CLOCK 0 fowardCPUStep0_CLOCK 0
+	CON CLOCK 0 fowardCPUStepM0_CLOCK 0
+	CON CLOCK 0 fowardCPUStepM1_CLOCK 0
+	CON CLOCK 0 fowardCPUStepM2_CLOCK 0
+	CON CLOCK 0 fowardCPUStepM3_CLOCK 0
+	CON CLOCK 0 fowardCPUStepM4_CLOCK 0
+	CON CLOCK 0 fowardCPUStep1_CLOCK 0
+
+
+	CON CLOCK 0 readRomStep1_CLOCK 0
+	CON CLOCK 0 readRomStep2_CLOCK 0
+	
+	CON CLOCK 0 readRomStepM0_CLOCK 0
+	CON CLOCK 0 readRomStepM1_CLOCK 0
+	CON CLOCK 0 readRomStepM2_CLOCK 0
+	CON CLOCK 0 readRomStepM3_CLOCK 0
+	CON CLOCK 0 readRomStepM4_CLOCK 0	
+
+	CON CLOCK 0 loadAfromCStep1_CLOCK 0
+	CON CLOCK 0 loadAfromCStep2_CLOCK 0	
+
+	CON CLOCK 0 loadBfromCStep1_CLOCK 0
+	CON CLOCK 0 loadBfromCStep2_CLOCK 0
+
+	CON CLOCK 0 doAluStep1_CLOCK 0
+	CON CLOCK 0 doAluStep2_CLOCK 0
+
+	CON CLOCK 0 ifNZeroStepM0_CLOCK 0
+	CON CLOCK 0 ifNZeroStepM1_CLOCK 0
+	CON CLOCK 0 ifNZeroStepM2_CLOCK 0
+	CON CLOCK 0 ifNZeroStepM3_CLOCK 0
+	CON CLOCK 0 ifNZeroStepM4_CLOCK 0
+
+	CON CLOCK 0 jmpNZeroStepA0_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepA1_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepA2_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepA3_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepA4_CLOCK 0
+	CON CLOCK 0 jmpNZeroStep1_CLOCK 0
+	CON CLOCK 0 jmpNZeroStep2_CLOCK 0
+	CON CLOCK 0 jmpNZeroStep3_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepB0_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepB1_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepB2_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepB3_CLOCK 0
+	CON CLOCK 0 jmpNZeroStepB4_CLOCK 0
+	CON CLOCK 0 jmpNZeroStep4_CLOCK 0
+	CON CLOCK 0 jmpNZeroStep5_CLOCK 0
+
+/* Processes */
+	/* fowardPC */
+		CON fowardPCStep0_ACTIVE 0 loAdressNext_WRITE 0
+		CON fowardPCStep0_ACTIVE 0 hiAdressNext_WRITE 0
+		CON fowardPCStep0_NEXT 0 fowardPCStep1_ENABLE 0
+		
+		CON fowardPCStep1_ACTIVE 0 loAdressNext_CLEAR 0
+		CON fowardPCStep1_ACTIVE 0 hiAdressNext_CLEAR 0
+		CON fowardPCStep1_NEXT 0 fowardPCStep2_ENABLE 0
+		
+		CON fowardPCStep2_ACTIVE 0 loAdressNext_READ 0
+		CON fowardPCStep2_ACTIVE 0 hiAdressNext_READ 0
+		CON fowardPCStep2_ACTIVE 0 loAdress_WRITE 0
+		CON fowardPCStep2_ACTIVE 0 hiAdress_WRITE 0
+		CON fowardPCStep2_NEXT 0 fowardPCStep3_ENABLE 0
+		
+		CON fowardPCStep3_ACTIVE 0 loAdress_CLEAR 0
+		CON fowardPCStep3_ACTIVE 0 hiAdress_CLEAR 0
+		CON fowardPCStep3_NEXT 0 fowardPCStep4_ENABLE 0
+		
+		CON fowardPCStep4_ACTIVE 0 loAdressNext_CLEAR 0
+		CON fowardPCStep4_ACTIVE 0 hiAdressNext_CLEAR 0
+		CON fowardPCStep4_ACTIVE 0 loAdress_READ 0
+		CON fowardPCStep4_ACTIVE 0 hiAdress_READ 0
+	/* readNextIns */
+		CON fowardCPUStep0_NEXT 0 fowardCPUStepM0_ENABLE 0
+		CON fowardCPUStep0_NEXT 0 fowardPCStep0_ENABLE 0
+				
+		CON fowardCPUStepM0_NEXT 0 fowardCPUStepM1_ENABLE 0
+		CON fowardCPUStepM1_NEXT 0 fowardCPUStepM2_ENABLE 0
+		CON fowardCPUStepM2_NEXT 0 fowardCPUStepM3_ENABLE 0
+		CON fowardCPUStepM3_NEXT 0 fowardCPUStepM4_ENABLE 0
+		CON fowardCPUStepM4_NEXT 0 fowardCPUStep1_ENABLE 0
+
+		CON fowardCPUStep1_NEXT 0 enableDecoders 0
+
+	/* readRom program */
+		
+		CON readRomStep0_ACTIVE 0 disableDecoders 0
+		CON readRomStep0_ACTIVE 0 pRead 0	
+		CON readRomStep0_ACTIVE 0 pRead 2
+		CON readRomStep0_ACTIVE 0 regC_WRITE 0	
+		CON readRomStep0_NEXT 0 readRomStepM0_ENABLE 0
+		CON readRomStep0_NEXT 0 fowardPCStep0_ENABLE 0
+		
+		CON readRomStepM0_NEXT 0 readRomStepM1_ENABLE 0
+		CON readRomStepM1_NEXT 0 readRomStepM2_ENABLE 0
+		CON readRomStepM2_NEXT 0 readRomStepM3_ENABLE 0
+		CON readRomStepM3_NEXT 0 readRomStepM4_ENABLE 0
+		CON readRomStepM4_NEXT 0 readRomStep1_ENABLE 0
+
+		CON readRomStep1_ACTIVE 0 regC_CLEAR 0
+		CON readRomStep1_NEXT 0 readRomStep2_ENABLE 0
+
+		CON readRomStep2_ACTIVE 0 pRead 1
+		CON readRomStep2_ACTIVE 0 pRead 2
+		CON readRomStep2_NEXT 0 fowardCPUStep0_ENABLE 0
+	/* loadAfromC */
+		CON loadAfromCStep0_ACTIVE 0 disableDecoders 0
+		CON loadAfromCStep0_ACTIVE 0 regA_WRITE 0
+		CON loadAfromCStep0_ACTIVE 0 regC_READ 0
+		CON loadAfromCStep0_NEXT 0 loadAfromCStep1_ENABLE 0
+
+		CON loadAfromCStep1_ACTIVE 0 regA_CLEAR 0
+		CON loadAfromCStep1_NEXT 0 loadAfromCStep2_ENABLE 0
+
+		CON loadAfromCStep2_ACTIVE 0 regC_CLEAR 0
+		CON loadAfromCStep2_NEXT 0 fowardCPUStep0_ENABLE 0
+	/* loadBfromC */
+		CON loadBfromCStep0_ACTIVE 0 disableDecoders 0
+		CON loadBfromCStep0_ACTIVE 0 regB_WRITE 0
+		CON loadBfromCStep0_ACTIVE 0 regC_READ 0
+		CON loadBfromCStep0_NEXT 0 loadBfromCStep1_ENABLE 0
+
+		CON loadBfromCStep1_ACTIVE 0 regB_CLEAR 0
+		CON loadBfromCStep1_NEXT 0 loadBfromCStep2_ENABLE 0
+
+		CON loadBfromCStep2_ACTIVE 0 regC_CLEAR 0
+		CON loadBfromCStep2_NEXT 0 fowardCPUStep0_ENABLE 0
+	/* doAlu */
+		CON doAluStep0_ACTIVE 0 disableDecoders 0
+		CON doAluStep0_ACTIVE 0 regC_WRITE 0
+		CON doAluStep0_ACTIVE 0 regA_READ 0
+		CON doAluStep0_ACTIVE 0 regB_READ 0
+		CON doAluStep0_ACTIVE 0 aluEnable 0
+		CON doAluStep0_ACTIVE 0 aluEnable 2
+		CON doAluStep0_NEXT 0 doAluStep1_ENABLE 0
+
+		CON doAluStep1_ACTIVE 0 regC_CLEAR 0
+		CON doAluStep1_NEXT 0 doAluStep2_ENABLE 0
+
+		CON doAluStep2_ACTIVE 0 regA_CLEAR 0
+		CON doAluStep2_ACTIVE 0 regB_CLEAR 0
+		CON doAluStep2_ACTIVE 0 aluEnable 1
+		CON doAluStep2_ACTIVE 0 aluEnable 2
+		CON doAluStep2_NEXT 0 fowardCPUStep0_ENABLE 0
+	/* ifNZero */
+		ADD AND ifNZeroAnd
+		CON ifNZeroStep0_ACTIVE 0 disableDecoders 0
+		CON ifNZeroStep0_NEXT 0 ifNZeroAnd 0
+		CON isNotZero_OUT 0 ifNZeroAnd 1
+		CON ifNZeroAnd 0 fowardPCStep0_ENABLE 0
+		CON ifNZeroStep0_NEXT 0 ifNZeroStepM0_ENABLE 0
+
+		CON ifNZeroStepM0_NEXT 0 ifNZeroStepM1_ENABLE 0
+		CON ifNZeroStepM1_NEXT 0 ifNZeroStepM2_ENABLE 0
+		CON ifNZeroStepM2_NEXT 0 ifNZeroStepM3_ENABLE 0
+		CON ifNZeroStepM3_NEXT 0 ifNZeroStepM4_ENABLE 0
+		CON ifNZeroStepM4_NEXT 0 fowardCPUStep0_ENABLE 0
+	/* jmpNZero */
+		ADD AND jmpNZeroAnd0
+		ADD AND jmpNZeroAnd1
+		CON jmpNZeroStep0_ACTIVE 0 disableDecoders 0
+
+		CON jmpNZeroStep0_NEXT 0 fowardPCStep0_ENABLE 0
+		CON jmpNZeroStep0_NEXT 0 jmpNZeroStepA0_ENABLE 0
+
+		CON jmpNZeroStepA0_NEXT 0 jmpNZeroStepA1_ENABLE 0
+		CON jmpNZeroStepA1_NEXT 0 jmpNZeroStepA2_ENABLE 0
+		CON jmpNZeroStepA2_NEXT 0 jmpNZeroStepA3_ENABLE 0
+		CON jmpNZeroStepA3_NEXT 0 jmpNZeroStepA4_ENABLE 0
+		CON jmpNZeroStepA4_NEXT 0 jmpNZeroStep1_ENABLE 0
+		
+		
+		CON jmpNZeroStep1_ACTIVE 0 jmpNZeroAnd0 0		
+		CON jmpNZeroStep1_ACTIVE 0  pRead2 0
+		CON jmpNZeroStep1_ACTIVE 0  pRead2 2
+		CON isNotZero_OUT 0 jmpNZeroAnd0 1
+		CON jmpNZeroAnd0 0  loAdress_WRITE 0
+		CON jmpNZeroStep1_NEXT 0 jmpNZeroStep2_ENABLE 0
+
+		CON jmpNZeroStep2_ACTIVE 0 loAdress_CLEAR 0
+		CON jmpNZeroStep2_NEXT 0 jmpNZeroStepB0_ENABLE 0
+		CON jmpNZeroStep2_NEXT 0 fowardPCStep0_ENABLE 0
+
+		
+		CON jmpNZeroStepB0_NEXT 0 jmpNZeroStepB1_ENABLE 0
+		CON jmpNZeroStepB1_NEXT 0 jmpNZeroStepB2_ENABLE 0
+		CON jmpNZeroStepB2_NEXT 0 jmpNZeroStepB3_ENABLE 0
+		CON jmpNZeroStepB3_NEXT 0 jmpNZeroStepB4_ENABLE 0
+		CON jmpNZeroStepB4_NEXT 0 jmpNZeroStep3_ENABLE 0
+		
+		CON jmpNZeroStep3_ACTIVE 0 jmpNZeroAnd1 0
+		CON isNotZero_OUT 0 jmpNZeroAnd1 1
+		CON jmpNZeroAnd1 0 hiAdress_WRITE 0
+		CON jmpNZeroStep3_NEXT 0 jmpNZeroStep4_ENABLE 0
+
+		CON jmpNZeroStep4_ACTIVE 0 hiAdress_CLEAR 0
+		CON jmpNZeroStep4_NEXT 0 jmpNZeroStep5_ENABLE 0
+
+		CON jmpNZeroStep5_ACTIVE 0 pRead 1
+		CON jmpNZeroStep5_ACTIVE 0 pRead 2
+		/* CON jmpNZeroStep5_NEXT 0 fowardCPUStep0_ENABLE 0 */
+	                              

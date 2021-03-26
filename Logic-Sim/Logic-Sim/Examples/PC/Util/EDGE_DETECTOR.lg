@@ -1,0 +1,12 @@
+﻿ADD BUFFER IN 1
+ADD BUFFER nin 2	
+
+CON IN 0 nin 0
+
+
+ADD XOR xor
+
+CON IN 0 xor 0
+CON nin 0 xor 1
+
+ALI OUT xor

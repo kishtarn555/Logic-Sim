@@ -1,0 +1,74 @@
+﻿ADD BUFFER E 1
+ADD A0 1
+ADD A1 1
+ADD A2 1
+ADD A3 1
+ADD A4 1
+ADD A5 1
+ADD A5 1
+ADD A7 1
+
+ADD B0 1
+ADD B1 1
+ADD B2 1
+ADD B3 1
+ADD B4 1
+ADD B5 1
+ADD B5 1
+ADD B7 1
+
+
+ADD AND aa1
+ADD AND aa2
+ADD AND aa3
+ADD AND aa4
+ADD AND aa5
+ADD AND aa6
+ADD AND aa7
+ADD AND bb1
+ADD AND bb2
+ADD AND bb3
+ADD AND bb4
+ADD AND bb5
+ADD AND bb6
+ADD AND bb7
+ADD AND pout
+ADD AND OUT
+
+CON A0 0 aa1 0
+CON A1 0 aa1 1
+CON A2 0 aa2 1
+CON A2 0 aa3 1
+CON A3 0 aa4 1
+CON A5 0 aa5 1
+CON A6 0 aa6 1
+CON A7 0 aa7 1
+
+CON aa1 0 aa2 0
+CON aa2 0 aa3 0
+CON aa3 0 aa4 0
+CON aa4 0 aa5 0
+CON aa5 0 aa6 0
+CON aa6 0 aa7 0
+
+CON B0 0 bb1 0
+CON B1 0 bb1 1
+CON B2 0 bb2 1
+CON B2 0 bb3 1
+CON B3 0 bb4 1
+CON B5 0 bb5 1
+CON B6 0 bb6 1
+CON B7 0 bb7 1
+
+CON bb1 0 bb2 0
+CON bb2 0 bb3 0
+CON bb3 0 bb4 0
+CON bb4 0 bb5 0
+CON bb5 0 bb6 0
+CON bb6 0 bb7 0
+
+CON aa7 0 pout 0
+CON bb7 0 pout 1
+
+CON E 0 OUT 0
+CON pout 0 OUT 1

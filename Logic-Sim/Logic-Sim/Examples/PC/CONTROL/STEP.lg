@@ -1,0 +1,24 @@
+﻿ADD BUFFER ACTIVATE 1
+ADD BUFFER NEXT 1
+
+IMP delay Examples/PC/CONTROL/PULSE_MOD.lg
+
+ADD JK data
+
+ADD NOT off 
+CON ACTIVATE 0 off 0
+
+CON ACTIVATE 0 data 0
+CON ACTIVATE 0 data 2
+
+ADD AND delete
+CON off 0 delete 0
+CON data 0 delete 1
+
+CON delete 0 data 1
+CON delete 0 data 2
+
+CON delete 0 delay_IN 0
+CON delay_OUT 0 NEXT 0
+
+

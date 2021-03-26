@@ -1,0 +1,23 @@
+﻿ADD BUFFER IN 1
+
+ADD BUFFER OUT 1
+
+ADD JK jkGate
+
+CON IN 0 jkGate 0
+CON IN 0 jkGate 2
+
+ADD NOT nin
+CON IN 0 nin 0
+
+ADD BUFFER bin 200
+ADD AND ano
+CON nin 0 ano 0
+CON jkGate 0 ano 1
+CON ano 0 bin 0
+
+CON bin 0 jkGate 1 
+CON bin 0 jkGate 2 
+
+
+CON jkGate 0 OUT 0

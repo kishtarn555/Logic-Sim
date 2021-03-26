@@ -1,0 +1,122 @@
+﻿IMP CPU Examples/PC/Control/ControlUnit.lg
+ADD KEY turnOn A
+ADD OUT_BYTE regC
+ADD OUT_BYTE regA
+ADD OUT_BYTE regB
+ADD OUT_BYTE program
+ADD OUT_BYTE enable
+
+ADD NOT CLOCK 
+ADD BUFFER DELAY 1000
+ADD JK CLOCKENABLE
+
+ADD NOT CLOCKCPU
+ADD BUFFER DELAYCPU 1000
+
+
+ADD NOT CLOCK3
+ADD BUFFER DELAY3 1
+
+
+CON DELAY3 0 CLOCK3 0
+CON CLOCK3 0 DELAY3 0
+
+CON CLOCK 0 DELAY 0
+CON DELAY 0 CLOCK 0
+
+CON CLOCKCPU 0 DELAYCPU 0
+CON DELAYCPU 0 CLOCKCPU 0
+
+CON CLOCK3 0 turnOn 0
+
+CON turnOn 0 CPU_ENABLE 0
+
+CON turnOn 0 CLOCKENABLE 0
+CON turnOn 0 CLOCKENABLE 2
+
+CON CLOCKENABLE 1 DELAYCPU 0
+CON CLOCKENABLE 0 CLOCK3 0
+
+CON CLOCKCPU 0 CPU_CLOCK 0
+
+IMP riseDEC Examples/PC/Util/RISE.lg
+CON turnOn 0 riseDEC_IN 0
+
+CON CLOCKCPU 0 regC 8
+CON CLOCKCPU 0 enable 8
+CON CLOCKCPU 0 program 8
+/* CON CLOCKCPU 0 program 8
+*/
+
+/*
+CON CPU_loAdress_O0 0 enable 0
+CON CPU_loAdress_O1 0 enable 1
+CON CPU_loAdress_O2 0 enable 2
+CON CPU_loAdress_O3 0 enable 3
+CON CPU_loAdress_O4 0 enable 4
+CON CPU_loAdress_O5 0 enable 5
+CON CPU_loAdress_O6 0 enable 6
+CON CPU_ENABLE 0 enable 7
+*/
+
+
+CON CPU_regC_data_O0 0 regC 0
+CON CPU_regC_data_O1 0 regC 1
+CON CPU_regC_data_O2 0 regC 2
+CON CPU_regC_data_O3 0 regC 3
+CON CPU_regC_data_O4 0 regC 4
+CON CPU_regC_data_O5 0 regC 5
+CON CPU_regC_data_O6 0 regC 6
+CON CPU_regC_data_O7 0 regC 7
+
+
+CON CPU_regA_data_O0 0 regA 0
+CON CPU_regA_data_O1 0 regA 1
+CON CPU_regA_data_O2 0 regA 2
+CON CPU_regA_data_O3 0 regA 3
+CON CPU_regA_data_O4 0 regA 4
+CON CPU_regA_data_O5 0 regA 5
+CON CPU_regA_data_O6 0 regA 6
+CON CPU_regA_data_O7 0 regA 7
+
+
+CON CPU_regB_data_O0 0 regB 0
+CON CPU_regB_data_O1 0 regB 1
+CON CPU_regB_data_O2 0 regB 2
+CON CPU_regB_data_O3 0 regB 3
+CON CPU_regB_data_O4 0 regB 4
+CON CPU_regB_data_O5 0 regB 5
+CON CPU_regB_data_O6 0 regB 6
+CON CPU_regB_data_O7 0 regB 7
+
+
+CON CPU_prog0 0 program 0
+CON CPU_prog1 0 program 1
+CON CPU_prog2 0 program 2
+CON CPU_prog3 0 program 3
+CON CPU_prog4 0 program 4
+CON CPU_prog5 0 program 5
+CON CPU_prog6 0 program 6
+CON CPU_prog7 0 program 7
+
+
+CON CPU_loAdressNext_data_O0 0 enable 0
+CON CPU_loAdressNext_data_O1 0 enable 1
+CON CPU_loAdressNext_data_O2 0 enable 2
+CON CPU_loAdressNext_data_O3 0 enable 3
+CON CPU_loAdressNext_data_O4 0 enable 4
+CON CPU_loAdressNext_data_O5 0 enable 5
+CON CPU_loAdressNext_data_O6 0 enable 6
+CON CPU_loAdressNext_data_O7 0 enable 7
+
+
+/*
+CON CPU_fowardPCStep0_ACTIVE 0 enable 0
+CON CPU_fowardPCStep1_ACTIVE 0 enable 1
+CON CPU_fowardPCStep2_ACTIVE 0 enable 2
+CON CPU_fowardPCStep3_ACTIVE 0 enable 3
+CON CPU_fowardPCStep4_ACTIVE 0 enable 4
+CON CPU_regC_data_O5 0 enable 5
+CON CPU_regC_data_O6 0 enable 6
+CON CPU_regC_data_O7 0 enable 7
+*/

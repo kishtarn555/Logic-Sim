@@ -1,0 +1,265 @@
+﻿/*
+	111: AND
+	011: OR
+	101: XOR
+	110: ADD
+	001: SUB
+	010: NOT
+	100: NOP
+*/
+IMP xor Examples/PC/ALU/XOR_MOD.lg
+IMP or Examples/PC/ALU/OR_MOD.lg
+IMP and Examples/PC/ALU/AND_MOD.lg
+IMP add Examples/PC/ALU/ADD_MOD.lg
+IMP sub Examples/PC/ALU/SUB_MOD.lg
+IMP not Examples/PC/ALU/NOT_MOD.lg
+
+ADD BUFFER A0 1
+ADD BUFFER A1 1
+ADD BUFFER A2 1
+ADD BUFFER A3 1
+ADD BUFFER A4 1
+ADD BUFFER A5 1
+ADD BUFFER A6 1
+ADD BUFFER A7 1
+
+ADD BUFFER B0 1
+ADD BUFFER B1 1
+ADD BUFFER B2 1
+ADD BUFFER B3 1
+ADD BUFFER B4 1
+ADD BUFFER B5 1
+ADD BUFFER B6 1
+ADD BUFFER B7 1
+
+ADD BUFFER O0 1
+ADD BUFFER O1 1
+ADD BUFFER O2 1
+ADD BUFFER O3 1
+ADD BUFFER O4 1
+ADD BUFFER O5 1
+ADD BUFFER O6 1
+ADD BUFFER O7 1
+
+ADD BUFFER OP0 1
+ADD BUFFER OP1 1
+ADD BUFFER OP2 1
+
+ADD BUFFER E 1
+
+ADD NOT nop0
+ADD NOT nop1
+ADD NOT nop2
+
+CON OP0 0 nop0 0
+CON OP1 0 nop1 0
+CON OP2 0 nop2 0
+
+/* OPERATION SELECTION */
+IMP a012 Examples/PC/Util/AND4.lg
+CON OP0 0 a012_I0 0
+CON OP1 0 a012_I1 0
+CON OP2 0 a012_I2 0
+CON E	0 a012_I3 0
+
+IMP an012 Examples/PC/Util/AND4.lg
+CON nop0 0 an012_I0 0
+CON OP1  0 an012_I1 0
+CON OP2  0 an012_I2 0
+CON E	 0 an012_I3 0
+
+IMP a0n12 Examples/PC/Util/AND4.lg
+CON OP0  0 a0n12_I0 0
+CON nop1 0 a0n12_I1 0
+CON OP2  0 a0n12_I2 0
+CON E	 0 a0n12_I3 0
+
+IMP a01n2 Examples/PC/Util/AND4.lg
+CON OP0  0 a01n2_I0 0
+CON OP1  0 a01n2_I1 0
+CON nop2 0 a01n2_I2 0
+CON E	 0 a01n2_I3 0
+
+IMP an0n12 Examples/PC/Util/AND4.lg
+CON nop0 0 an0n12_I0 0
+CON nop1 0 an0n12_I1 0
+CON OP2  0 an0n12_I2 0
+CON E    0 an0n12_I3 0
+
+IMP an01n2 Examples/PC/Util/AND4.lg
+CON nop0 0 an01n2_I0 0
+CON OP1  0 an01n2_I1 0
+CON nop2 0 an01n2_I2 0
+CON E    0 an01n2_I3 0
+
+IMP a0n1n2 Examples/PC/Util/AND4.lg
+CON OP0  0 a0n1n2_I0 0
+CON nop1 0 a0n1n2_I1 0
+CON nop2 0 a0n1n2_I2 0
+CON E 0    a0n1n2_I3 0
+
+IMP an0n1n2 Examples/PC/Util/AND4.lg
+CON nop0 0 an0n1n2_I0 0
+CON nop1 0 an0n1n2_I1 0
+CON nop2 0 an0n1n2_I2 0
+CON E    0 an0n1n2_I3 0
+
+CON a012_OUT	0 and_E	0
+CON an012_OUT	0 or_E	0
+CON a0n12_OUT	0 xor_E	0
+CON a01n2_OUT	0 add_E	0
+CON an0n12_OUT	0 sub_E	0
+CON an01n2_OUT	0 not_E	0
+/* AND */
+CON A0 0 and_A0 0
+CON A1 0 and_A1 0
+CON A2 0 and_A2 0
+CON A3 0 and_A3 0
+CON A4 0 and_A4 0
+CON A5 0 and_A5 0
+CON A6 0 and_A6 0
+CON A7 0 and_A7 0
+
+CON B0 0 and_B0 0
+CON B1 0 and_B1 0
+CON B2 0 and_B2 0
+CON B3 0 and_B3 0
+CON B4 0 and_B4 0
+CON B5 0 and_B5 0
+CON B6 0 and_B6 0
+CON B7 0 and_B7 0
+/* OR */
+CON A0 0 or_A0 0
+CON A1 0 or_A1 0
+CON A2 0 or_A2 0
+CON A3 0 or_A3 0
+CON A4 0 or_A4 0
+CON A5 0 or_A5 0
+CON A6 0 or_A6 0
+CON A7 0 or_A7 0
+
+CON B0 0 or_B0 0
+CON B1 0 or_B1 0
+CON B2 0 or_B2 0
+CON B3 0 or_B3 0
+CON B4 0 or_B4 0
+CON B5 0 or_B5 0
+CON B6 0 or_B6 0
+CON B7 0 or_B7 0
+/* XOR */
+CON A0 0 xor_A0 0
+CON A1 0 xor_A1 0
+CON A2 0 xor_A2 0
+CON A3 0 xor_A3 0
+CON A4 0 xor_A4 0
+CON A5 0 xor_A5 0
+CON A6 0 xor_A6 0
+CON A7 0 xor_A7 0
+
+CON B0 0 xor_B0 0
+CON B1 0 xor_B1 0
+CON B2 0 xor_B2 0
+CON B3 0 xor_B3 0
+CON B4 0 xor_B4 0
+CON B5 0 xor_B5 0
+CON B6 0 xor_B6 0
+CON B7 0 xor_B7 0
+/* ADDITION */
+CON A0 0 add_A0 0
+CON A1 0 add_A1 0
+CON A2 0 add_A2 0
+CON A3 0 add_A3 0
+CON A4 0 add_A4 0
+CON A5 0 add_A5 0
+CON A6 0 add_A6 0
+CON A7 0 add_A7 0
+
+CON B0 0 add_B0 0
+CON B1 0 add_B1 0
+CON B2 0 add_B2 0
+CON B3 0 add_B3 0
+CON B4 0 add_B4 0
+CON B5 0 add_B5 0
+CON B6 0 add_B6 0
+CON B7 0 add_B7 0
+/* SUB */
+CON A0 0 sub_A0 0
+CON A1 0 sub_A1 0
+CON A2 0 sub_A2 0
+CON A3 0 sub_A3 0
+CON A4 0 sub_A4 0
+CON A5 0 sub_A5 0
+CON A6 0 sub_A6 0
+CON A7 0 sub_A7 0
+
+CON B0 0 sub_B0 0
+CON B1 0 sub_B1 0
+CON B2 0 sub_B2 0
+CON B3 0 sub_B3 0
+CON B4 0 sub_B4 0
+CON B5 0 sub_B5 0
+CON B6 0 sub_B6 0
+CON B7 0 sub_B7 0
+/* NOT */
+CON A0 0 not_A0 0
+CON A1 0 not_A1 0
+CON A2 0 not_A2 0
+CON A3 0 not_A3 0
+CON A4 0 not_A4 0
+CON A5 0 not_A5 0
+CON A6 0 not_A6 0
+CON A7 0 not_A7 0
+/* AND_O */
+CON and_O0 0 O0 0
+CON and_O1 0 O1 0
+CON and_O2 0 O2 0
+CON and_O3 0 O3 0
+CON and_O4 0 O4 0
+CON and_O5 0 O5 0
+CON and_O6 0 O6 0
+CON and_O7 0 O7 0
+/* OR_O */
+CON or_O0 0 O0 0
+CON or_O1 0 O1 0
+CON or_O2 0 O2 0
+CON or_O3 0 O3 0
+CON or_O4 0 O4 0
+CON or_O5 0 O5 0
+CON or_O6 0 O6 0
+CON or_O7 0 O7 0
+/* XOR_O */
+CON xor_O0 0 O0 0
+CON xor_O1 0 O1 0
+CON xor_O2 0 O2 0
+CON xor_O3 0 O3 0
+CON xor_O4 0 O4 0
+CON xor_O5 0 O5 0
+CON xor_O6 0 O6 0
+CON xor_O7 0 O7 0
+/* ADDITION_O */
+CON add_O0 0 O0 0
+CON add_O1 0 O1 0
+CON add_O2 0 O2 0
+CON add_O3 0 O3 0
+CON add_O4 0 O4 0
+CON add_O5 0 O5 0
+CON add_O6 0 O6 0
+CON add_O7 0 O7 0
+/* SUB_O */
+CON sub_O0 0 O0 0
+CON sub_O1 0 O1 0
+CON sub_O2 0 O2 0
+CON sub_O3 0 O3 0
+CON sub_O4 0 O4 0
+CON sub_O5 0 O5 0
+CON sub_O6 0 O6 0
+CON sub_O7 0 O7 0
+/* NOT_O */
+CON not_O0 0 O0 0
+CON not_O1 0 O1 0
+CON not_O2 0 O2 0
+CON not_O3 0 O3 0
+CON not_O4 0 O4 0
+CON not_O5 0 O5 0
+CON not_O6 0 O6 0
+CON not_O7 0 O7 0

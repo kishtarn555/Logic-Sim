@@ -1,0 +1,113 @@
+﻿IMP CPU Examples/PC/CONTROL/ControlUnit.lg
+IMP steper Examples/PC/CONTROL/STEP.lg
+
+ADD KEY ana A
+
+ADD OUT_BYTE prog
+ADD OUT_BYTE regC
+ADD OUT_BYTE regA
+ADD OUT_BYTE regB
+ADD OUT_BYTE byte3
+
+ADD NOT CLOCK 
+ADD BUFFER DELAY 100000
+
+ADD JK active
+ADD AND isPulse
+
+CON CLOCK 0 DELAY 0
+CON DELAY 0 CLOCK 0
+
+ADD NOT CLOCK2
+ADD BUFFER DELAY2 5
+
+CON CLOCK2 0 DELAY2 0
+CON DELAY2 0 CLOCK2 0
+
+CON CLOCK2 0 ana 0
+ 
+CON ana 0 steper_ACTIVATE 0
+
+CON ana 0 active 0
+CON ana 0 active 2
+
+CON active 0 isPulse 0
+CON CLOCK 0 isPulse 1
+
+ADD NOT NOTO2
+CON ana 0 NOTO2 0
+
+CON NOTO2 0 prog 8 
+CON NOTO2 0 regC 8 
+CON NOTO2 0 regA 8
+CON NOTO2 0 byte3 8
+CON NOTO2 0 regB 8
+
+CON isPulse 0 CPU_CLOCK 0
+
+CON CPU_loNextCounter_O0 0 prog 0
+CON CPU_loNextCounter_O1 0 prog 1
+CON CPU_loNextCounter_O2 0 prog 2
+CON CPU_loNextCounter_O3 0 prog 3
+CON CPU_loNextCounter_O4 0 prog 4
+CON CPU_loNextCounter_O5 0 prog 5
+CON CPU_loNextCounter_O6 0 prog 6
+CON CPU_loNextCounter_O7 0 prog 7
+
+CON CPU_regC_O0 0 regC 0
+CON CPU_regC_O1 0 regC 1
+CON CPU_regC_O2 0 regC 2
+CON CPU_regC_O3 0 regC 3
+CON CPU_regC_O4 0 regC 4
+CON CPU_regC_O5 0 regC 5
+CON CPU_regC_O6 0 regC 6
+CON CPU_regC_O7 0 regC 7
+
+CON CPU_regA_O0 0 regA 0
+CON CPU_regA_O1 0 regA 1
+CON CPU_regA_O2 0 regA 2
+CON CPU_regA_O3 0 regA 3
+CON CPU_regA_O4 0 regA 4
+CON CPU_regA_O5 0 regA 5
+CON CPU_regA_O6 0 regA 6
+CON CPU_regA_O7 0 regA 7
+
+
+CON CPU_regB_O0 0 regA 0
+CON CPU_regB_O1 0 regA 1
+CON CPU_regB_O2 0 regA 2
+CON CPU_regB_O3 0 regA 3
+CON CPU_regB_O4 0 regA 4
+CON CPU_regB_O5 0 regA 5
+CON CPU_regB_O6 0 regA 6
+CON CPU_regB_O7 0 regA 7
+
+
+CON CPU_CLOCK 0 byte3 0
+CON CPU_romReadOP_OUT 0 byte3 1
+CON CPU_regC_E 0 byte3 2
+CON CPU_regC_WR 0 byte3 3
+CON CPU_busyState 1 byte3 4
+CON CPU_busyState 0 byte3 5
+/*
+CON CPU_ALU_E 0 byte 0
+CON CPU_regC_O1 0 byte 1
+CON CPU_regC_O2 0 byte 2
+CON CPU_regC_O3 0 byte 3
+CON CPU_aluStep3_ACTIVATE 0 byte 4
+CON CPU_aluStep2_ACTIVATE 0 byte 5
+CON CPU_aluStep1_ACTIVATE 0 byte 6
+CON CPU_aluStep0_ACTIVATE 0 byte 7
+*/
+/*
+CON CPU_P0 0 byte 0
+CON CPU_P1 0 byte 1
+CON CPU_P2 0 byte 2
+CON CPU_P3 0 byte 3
+CON CPU_P4 0 byte 4
+CON CPU_P5 0 byte 5
+CON CPU_P6 0 byte 6
+CON CPU_P7 0 byte 7
+*/
+
+

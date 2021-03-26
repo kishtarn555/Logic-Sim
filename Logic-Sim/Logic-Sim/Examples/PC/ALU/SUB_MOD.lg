@@ -35,6 +35,15 @@ ALI B5 inB_I5
 ALI B6 inB_I6
 ALI B7 inB_I7
 
+ADD NOT nb0
+ADD NOT nb1
+ADD NOT nb2
+ADD NOT nb3
+ADD NOT nb4
+ADD NOT nb5
+ADD NOT nb6
+ADD NOT nb7
+
 CON inA_O0 0 a0_A 0
 CON inA_O1 0 a1_A 0
 CON inA_O2 0 a2_A 0
@@ -44,15 +53,23 @@ CON inA_O5 0 a5_A 0
 CON inA_O6 0 a6_A 0
 CON inA_O7 0 a7_A 0
 
-CON inB_O0 0 a0_B 0
-CON inB_O1 0 a1_B 0
-CON inB_O2 0 a2_B 0
-CON inB_O3 0 a3_B 0
-CON inB_O4 0 a4_B 0
-CON inB_O5 0 a5_B 0
-CON inB_O6 0 a6_B 0
-CON inB_O7 0 a7_B 0
+CON inB_O0 0 nb0 0
+CON inB_O1 0 nb1 0
+CON inB_O2 0 nb2 0
+CON inB_O3 0 nb3 0
+CON inB_O4 0 nb4 0
+CON inB_O5 0 nb5 0
+CON inB_O6 0 nb6 0
+CON inB_O7 0 nb7 0
 
+CON nb0 0 a0_B 0
+CON nb1 0 a1_B 0
+CON nb2 0 a2_B 0
+CON nb3 0 a3_B 0
+CON nb4 0 a4_B 0
+CON nb5 0 a5_B 0
+CON nb6 0 a6_B 0
+CON nb7 0 a7_B 0
 
 ADD BUFFER O0 1
 ADD BUFFER O1 1
@@ -82,8 +99,8 @@ CON oG_I6 0 O6 0
 CON oG_I7 0 O7 0
 
 ADD BUFFER CFLAG 1
-ADD LOW lo
-CON lo 0 a0_CIN 0
+ADD HIGH hi
+CON hi 0 a0_CIN 0
 CON a0_COUT 0 a1_CIN 0
 CON a1_COUT 0 a2_CIN 0
 CON a2_COUT 0 a3_CIN 0

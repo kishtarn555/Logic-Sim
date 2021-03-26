@@ -6,6 +6,7 @@ using Logic_Sim.Engine;
 using Logic_Sim.Engine.Primitives;
 using Logic_Sim.Engine.Extended.IO;
 using Logic_Sim.Engine.Extended.AdvancedGates;
+using Logic_Sim.Engine.Extended.Storage;
 using System.IO;
 using System.CodeDom;
 
@@ -120,10 +121,11 @@ namespace Logic_Sim.Compiler
             } else if (type == "KEY") {
                 string k = tokenizer.NextString();
                 component = new KEY_READER(k, name);
-            }else if (type == "JK") {
+            } else if (type == "JK") {
                 component = new JK_Gate(name);
+            } else if (type == "ROM") {
+                component = new ROM(name);
             } else {
-
                 throw new Exception("While compiling, found unknown primitive " + type);
             }
 

@@ -18,22 +18,20 @@ namespace Logic_Sim.Engine.Extended.AdvancedGates
             if (renderedInputs[2] != output && renderedInputs[2]) {
                 if (renderedInputs[0] == false && renderedInputs[1] == false) {
 
-                    Console.BackgroundColor = ConsoleColor.Green;
                 } else if (renderedInputs[0] == true && renderedInputs[1] == false) {
                     Q = true;
 
-                    Console.BackgroundColor = ConsoleColor.Black;
                 } else if (renderedInputs[0] == false && renderedInputs[1] == true) {
                     Q = false;
-
-                    Console.BackgroundColor = ConsoleColor.Black;
                 } else {
-                    Console.BackgroundColor = ConsoleColor.Red;
                     Q = !Q;
+                    Console.WriteLine(this);
+                    Console.ReadLine();
                 }
-                    nextstate[0] = Q; nextstate[1] = !Q;
             }
-            renderedInputs[2] = output;
+
+            nextstate[0] = Q; nextstate[1] = !Q;
+            output = renderedInputs[2];
         }
     }
 }

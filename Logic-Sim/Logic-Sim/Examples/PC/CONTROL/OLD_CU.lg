@@ -1,0 +1,595 @@
+﻿ADD ROM program
+IMP ALU Examples/PC/ALU/ALU.lg
+IMP pcAdderLo Examples/PC/ALU/ADD_MOD.lg
+IMP pcAdderHi Examples/PC/ALU/ADD_MOD.lg
+ADD HIGH HI
+ADD LOW LO
+ADD JK busyState
+ADD BUFFER CLOCK 1
+
+ADD NOT nCLOCK
+CON CLOCK 0 nCLOCK 0
+/* REGISTERS */
+IMP loCounter Examples/PC/RAM/BYTERAM.lg
+IMP hiCounter Examples/PC/RAM/BYTERAM.lg
+IMP	loNextCounter Examples/PC/RAM/BYTERAM.lg	
+IMP	hiNextCounter Examples/PC/RAM/BYTERAM.lg	
+IMP regA Examples/PC/RAM/BYTERAM.lg
+IMP regB Examples/PC/RAM/BYTERAM.lg
+IMP regC Examples/PC/RAM/BYTERAM.lg
+
+IMP regState Examples/PC/RAM/BYTERAM.lg
+/* Program reading */
+ADD BUFFER P0 1
+ADD BUFFER P1 1
+ADD BUFFER P2 1
+ADD BUFFER P3 1
+ADD BUFFER P4 1
+ADD BUFFER P5 1
+ADD BUFFER P6 1
+ADD BUFFER P7 1
+
+ADD NOT NP0 
+ADD NOT NP1 
+ADD NOT NP2 
+ADD NOT NP3 
+ADD NOT NP4 
+ADD NOT NP5 
+ADD NOT NP6 
+ADD NOT NP7 
+
+/* REGISTERS CAP */
+	/* Program Counter */
+	IMP gateLoCounter Examples/PC/Util/BUS_GATE.lg
+	IMP gateHiCounter Examples/PC/Util/BUS_GATE.lg
+
+	CON loNextCounter_O0 0 gateLoCounter_I0 0
+	CON loNextCounter_O1 0 gateLoCounter_I1 0
+	CON loNextCounter_O2 0 gateLoCounter_I2 0
+	CON loNextCounter_O3 0 gateLoCounter_I3 0
+	CON loNextCounter_O4 0 gateLoCounter_I4 0
+	CON loNextCounter_O5 0 gateLoCounter_I5 0
+	CON loNextCounter_O6 0 gateLoCounter_I6 0
+	CON loNextCounter_O7 0 gateLoCounter_I7 0
+
+	CON hiNextCounter_O0 0 gateHiCounter_I0 0
+	CON hiNextCounter_O1 0 gateHiCounter_I1 0
+	CON hiNextCounter_O2 0 gateHiCounter_I2 0
+	CON hiNextCounter_O3 0 gateHiCounter_I3 0
+	CON hiNextCounter_O4 0 gateHiCounter_I4 0
+	CON hiNextCounter_O5 0 gateHiCounter_I5 0
+	CON hiNextCounter_O6 0 gateHiCounter_I6 0
+	CON hiNextCounter_O7 0 gateHiCounter_I7 0
+
+	/* program->C */
+	IMP PGate Examples/PC/Util/BUS_GATE.lg
+
+	CON P0 0 PGate_I0 0
+	CON P1 0 PGate_I1 0
+	CON P2 0 PGate_I2 0
+	CON P3 0 PGate_I3 0
+	CON P4 0 PGate_I4 0
+	CON P5 0 PGate_I5 0
+	CON P6 0 PGate_I6 0
+	CON P7 0 PGate_I7 0
+
+	/* A cap */
+	IMP gateRegA Examples/PC/Util/BUS_GATE.lg
+	CON regA_O0 0 gateRegA_I0 0
+	CON regA_O1 0 gateRegA_I1 0
+	CON regA_O2 0 gateRegA_I2 0
+	CON regA_O3 0 gateRegA_I3 0
+	CON regA_O4 0 gateRegA_I4 0
+	CON regA_O5 0 gateRegA_I5 0
+	CON regA_O6 0 gateRegA_I6 0
+	CON regA_O7 0 gateRegA_I7 0
+
+	/* B cap */
+	IMP gateRegB Examples/PC/Util/BUS_GATE.lg
+	CON regB_O0 0 gateRegB_I0 0
+	CON regB_O1 0 gateRegB_I1 0
+	CON regB_O2 0 gateRegB_I2 0
+	CON regB_O3 0 gateRegB_I3 0
+	CON regB_O4 0 gateRegB_I4 0
+	CON regB_O5 0 gateRegB_I5 0
+	CON regB_O6 0 gateRegB_I6 0
+	CON regB_O7 0 gateRegB_I7 0
+
+	/* C cap */
+	IMP gateRegC Examples/PC/Util/BUS_GATE.lg
+	CON regC_O0 0 gateRegC_I0 0
+	CON regC_O1 0 gateRegC_I1 0
+	CON regC_O2 0 gateRegC_I2 0
+	CON regC_O3 0 gateRegC_I3 0
+	CON regC_O4 0 gateRegC_I4 0
+	CON regC_O5 0 gateRegC_I5 0
+	CON regC_O6 0 gateRegC_I6 0
+	CON regC_O7 0 gateRegC_I7 0
+
+
+/* ENABLE REGISTERS */
+CON HI 0 regA_E 0
+CON HI 0 regB_E 0
+CON HI 0 regC_E 0
+CON HI 0 regState_E 0
+CON HI 0 loCounter_E 0
+CON HI 0 hiCounter_E 0
+CON HI 0 loNextCounter_E 0
+CON HI 0 hiNextCounter_E 0
+
+/* INNER LINES */
+
+	/* Program -> C */
+	CON PGate_O0 0 regC_I0 0
+	CON PGate_O1 0 regC_I1 0
+	CON PGate_O2 0 regC_I2 0
+	CON PGate_O3 0 regC_I3 0
+	CON PGate_O4 0 regC_I4 0
+	CON PGate_O5 0 regC_I5 0
+	CON PGate_O6 0 regC_I6 0
+	CON PGate_O7 0 regC_I7 0
+	/* A->C */
+	CON gateRegA_O0 0 regC_I0 0
+	CON gateRegA_O1 0 regC_I1 0
+	CON gateRegA_O2 0 regC_I2 0
+	CON gateRegA_O3 0 regC_I3 0
+	CON gateRegA_O4 0 regC_I4 0
+	CON gateRegA_O5 0 regC_I5 0
+	CON gateRegA_O6 0 regC_I6 0
+	CON gateRegA_O7 0 regC_I7 0
+	/* B->C */
+	CON gateRegB_O0 0 regC_I0 0
+	CON gateRegB_O1 0 regC_I1 0
+	CON gateRegB_O2 0 regC_I2 0
+	CON gateRegB_O3 0 regC_I3 0
+	CON gateRegB_O4 0 regC_I4 0
+	CON gateRegB_O5 0 regC_I5 0
+	CON gateRegB_O6 0 regC_I6 0
+	CON gateRegB_O7 0 regC_I7 0
+	/* C->A */
+	CON gateRegC_O0 0 regA_I0 0
+	CON gateRegC_O1 0 regA_I1 0
+	CON gateRegC_O2 0 regA_I2 0
+	CON gateRegC_O3 0 regA_I3 0
+	CON gateRegC_O4 0 regA_I4 0
+	CON gateRegC_O5 0 regA_I5 0
+	CON gateRegC_O6 0 regA_I6 0
+	CON gateRegC_O7 0 regA_I7 0
+	/* B->C */
+	CON gateRegC_O0 0 regA_I0 0
+	CON gateRegC_O1 0 regA_I1 0
+	CON gateRegC_O2 0 regA_I2 0
+	CON gateRegC_O3 0 regA_I3 0
+	CON gateRegC_O4 0 regA_I4 0
+	CON gateRegC_O5 0 regA_I5 0
+	CON gateRegC_O6 0 regA_I6 0
+	CON gateRegC_O7 0 regA_I7 0
+
+/* JK E */
+ADD JK regAjWR
+ADD JK regBjWR
+ADD JK regCjWR
+
+ADD JK ALUjE
+ADD JK nextCounterJK
+ADD JK programReadJK
+
+ADD JK regAJK
+ADD JK regBJK
+ADD JK regCJK
+
+CON regAjWR 0 regA_WR 0
+CON regBjWR 0 regB_WR 0
+CON regCjWR 0 regC_WR 0
+CON nextCounterJK 0 gateLoCounter_E 0
+CON nextCounterJK 0 gateHiCounter_E 0
+CON programReadJK 0 PGate_E 0
+CON regAJK 0 gateRegA_E 0
+CON regBJK 0 gateRegB_E 0
+CON regCJK 0 gateRegC_E 0
+
+
+CON ALUjE 0 ALU_E 0
+/* INNER CLOCK */
+ADD NOT inClock 
+ADD BUFFER inDelay 10
+
+CON inClock 0 inDelay 0
+CON inDelay 0 inClock 0
+
+CON inClock 0 regA_CLOCK 0
+CON inClock 0 regB_CLOCK 0
+CON inClock 0 regC_CLOCK 0
+
+CON inClock 0 loCounter_CLOCK 0
+CON inClock 0 hiCounter_CLOCK 0
+CON inClock 0 loNextCounter_CLOCK 0
+CON inClock 0 hiNextCounter_CLOCK 0
+
+/* program Counter */
+CON loCounter_O0 0 program 0
+CON loCounter_O1 0 program 1
+CON loCounter_O2 0 program 2
+CON loCounter_O3 0 program 3
+CON loCounter_O4 0 program 4
+CON loCounter_O5 0 program 5
+CON loCounter_O6 0 program 6
+CON loCounter_O7 0 program 7
+CON hiCounter_O0 0 program 8
+CON hiCounter_O1 0 program 9
+CON hiCounter_O2 0 program 10
+CON hiCounter_O3 0 program 11
+CON hiCounter_O4 0 program 12
+CON hiCounter_O5 0 program 13
+CON hiCounter_O6 0 program 14
+CON HI 0 program 15
+
+
+
+CON program 0 P0 0
+CON program 1 P1 0
+CON program 2 P2 0
+CON program 3 P3 0
+CON program 4 P4 0
+CON program 5 P5 0
+CON program 6 P6 0
+CON program 7 P7 0
+
+CON P0 0 NP0 0
+CON P1 0 NP1 0
+CON P2 0 NP2 0
+CON P3 0 NP3 0
+CON P4 0 NP4 0
+CON P5 0 NP5 0
+CON P6 0 NP6 0
+CON P7 0 NP7 0
+
+CON HI 0 pcAdderLo_E 0
+CON HI 0 pcAdderHi_E 0
+CON loCounter_O0 0 pcAdderLo_A0 0
+CON loCounter_O1 0 pcAdderLo_A1 0
+CON loCounter_O2 0 pcAdderLo_A2 0
+CON loCounter_O3 0 pcAdderLo_A3 0
+CON loCounter_O4 0 pcAdderLo_A4 0
+CON loCounter_O5 0 pcAdderLo_A5 0
+CON loCounter_O6 0 pcAdderLo_A6 0
+CON loCounter_O7 0 pcAdderLo_A7 0
+
+CON HI 0 pcAdderLo_B0 0
+CON LO 0 pcAdderLo_B1 0
+CON LO 0 pcAdderLo_B2 0
+CON LO 0 pcAdderLo_B3 0
+CON LO 0 pcAdderLo_B4 0
+CON LO 0 pcAdderLo_B5 0
+CON LO 0 pcAdderLo_B6 0
+CON LO 0 pcAdderLo_B7 0
+
+CON hiCounter_O0 0 pcAdderHi_A0 0
+CON hiCounter_O1 0 pcAdderHi_A1 0
+CON hiCounter_O2 0 pcAdderHi_A2 0
+CON hiCounter_O3 0 pcAdderHi_A3 0
+CON hiCounter_O4 0 pcAdderHi_A4 0
+CON hiCounter_O5 0 pcAdderHi_A5 0
+CON hiCounter_O6 0 pcAdderHi_A6 0
+CON hiCounter_O7 0 pcAdderHi_A7 0
+
+
+
+CON pcAdderLo_CFLAG 0 pcAdderHi_B0 0
+CON LO 0 pcAdderHi_B1 0
+CON LO 0 pcAdderHi_B2 0
+CON LO 0 pcAdderHi_B3 0
+CON LO 0 pcAdderHi_B4 0
+CON LO 0 pcAdderHi_B5 0
+CON LO 0 pcAdderHi_B6 0
+CON LO 0 pcAdderHi_B7 0
+
+CON pcAdderLo_O0 0 loNextCounter_I0 0
+CON pcAdderLo_O1 0 loNextCounter_I1 0
+CON pcAdderLo_O2 0 loNextCounter_I2 0
+CON pcAdderLo_O3 0 loNextCounter_I3 0
+CON pcAdderLo_O4 0 loNextCounter_I4 0
+CON pcAdderLo_O5 0 loNextCounter_I5 0
+CON pcAdderLo_O6 0 loNextCounter_I6 0
+CON pcAdderLo_O7 0 loNextCounter_I7 0
+
+CON pcAdderHi_O0 0 hiNextCounter_I0 0
+CON pcAdderHi_O1 0 hiNextCounter_I1 0
+CON pcAdderHi_O2 0 hiNextCounter_I2 0
+CON pcAdderHi_O3 0 hiNextCounter_I3 0
+CON pcAdderHi_O4 0 hiNextCounter_I4 0
+CON pcAdderHi_O5 0 hiNextCounter_I5 0
+CON pcAdderHi_O6 0 hiNextCounter_I6 0
+CON pcAdderHi_O7 0 hiNextCounter_I7 0
+
+CON gateLoCounter_O0 0 loCounter_I0 0 
+CON gateLoCounter_O1 0 loCounter_I1 0 
+CON gateLoCounter_O2 0 loCounter_I2 0 
+CON gateLoCounter_O3 0 loCounter_I3 0 
+CON gateLoCounter_O4 0 loCounter_I4 0 
+CON gateLoCounter_O5 0 loCounter_I5 0 
+CON gateLoCounter_O6 0 loCounter_I6 0 
+CON gateLoCounter_O7 0 loCounter_I7 0 
+
+CON gateHiCounter_O0 0 hiCounter_I0 0 
+CON gateHiCounter_O1 0 hiCounter_I1 0 
+CON gateHiCounter_O2 0 hiCounter_I2 0 
+CON gateHiCounter_O3 0 hiCounter_I3 0 
+CON gateHiCounter_O4 0 hiCounter_I4 0 
+CON gateHiCounter_O5 0 hiCounter_I5 0 
+CON gateHiCounter_O6 0 hiCounter_I6 0 
+CON gateHiCounter_O7 0 hiCounter_I7 0 
+
+
+
+/* ------------ALU----- */
+
+CON P0 0 ALU_OP0 0 
+CON P1 0 ALU_OP1 0
+CON P2 0 ALU_OP2 0
+
+CON regA_O0 0 ALU_A0 0
+CON regA_O1 0 ALU_A1 0
+CON regA_O2 0 ALU_A2 0
+CON regA_O3 0 ALU_A3 0
+CON regA_O4 0 ALU_A4 0
+CON regA_O5 0 ALU_A5 0
+CON regA_O6 0 ALU_A6 0
+CON regA_O7 0 ALU_A7 0
+
+CON regB_O0 0 ALU_B0 0
+CON regB_O1 0 ALU_B1 0
+CON regB_O2 0 ALU_B2 0
+CON regB_O3 0 ALU_B3 0
+CON regB_O4 0 ALU_B4 0
+CON regB_O5 0 ALU_B5 0
+CON regB_O6 0 ALU_B6 0
+CON regB_O7 0 ALU_B7 0
+
+CON ALU_O0 0 regC_I0 0
+CON ALU_O1 0 regC_I1 0
+CON ALU_O2 0 regC_I2 0
+CON ALU_O3 0 regC_I3 0
+CON ALU_O4 0 regC_I4 0
+CON ALU_O5 0 regC_I5 0
+CON ALU_O6 0 regC_I6 0
+CON ALU_O7 0 regC_I7 0
+
+/* Program Decode */
+	/* ALU #XXX00101 */
+	IMP aluOP Examples/PC/Util/BUS_AND.lg
+	CON HI	0 aluOP_A0 0
+	CON HI	0 aluOP_A1 0
+	CON HI	0 aluOP_A2 0
+	CON NP3	0 aluOP_A3 0
+	CON NP5	0 aluOP_A4 0
+	CON P5	0 aluOP_A5 0
+	CON NP6	0 aluOP_A6 0
+	CON P7	0 aluOP_A7 0
+	CON CLOCK 0 aluOP_E 0
+	/* readROM #00000111 */	
+	IMP romReadOP Examples/PC/Util/BUS_AND.lg
+	CON NP0	0 romReadOP_A0 0
+	CON NP1	0 romReadOP_A1 0
+	CON NP2	0 romReadOP_A2 0
+	CON NP3	0 romReadOP_A3 0
+	CON NP5	0 romReadOP_A4 0
+	CON P5	0 romReadOP_A5 0
+	CON P6	0 romReadOP_A6 0
+	CON P7	0 romReadOP_A7 0
+	CON CLOCK 0 romReadOP_E 0
+	/* loadAfromC #00001001 */	
+	IMP ldAcOP Examples/PC/Util/BUS_AND.lg
+	CON NP0	0 ldAcOP_A0 0
+	CON NP1	0 ldAcOP_A1 0
+	CON NP2	0 ldAcOP_A2 0
+	CON NP3	0 ldAcOP_A3 0
+	CON P5	0 ldAcOP_A4 0
+	CON NP5	0 ldAcOP_A5 0
+	CON NP6	0 ldAcOP_A6 0
+	CON P7	0 ldAcOP_A7 0
+	CON CLOCK 0 ldAcOP_E 0
+	/* loadBfromC #00011001 */	
+	IMP ldBcOP Examples/PC/Util/BUS_AND.lg
+	CON NP0	0 ldBcOP_A0 0
+	CON NP1	0 ldBcOP_A1 0
+	CON NP2	0 ldBcOP_A2 0
+	CON P3	0 ldBcOP_A3 0
+	CON P5	0 ldBcOP_A4 0
+	CON NP5	0 ldBcOP_A5 0
+	CON NP6	0 ldBcOP_A6 0
+	CON P7	0 ldBcOP_A7 0
+	CON CLOCK 0 ldBcOP_E 0
+
+
+
+/* Advance PC */
+IMP pcStep0 Examples/PC/CONTROL/STEP.lg
+
+
+IMP pcAdvanceStep0 Examples/PC/CONTROL/STEP.lg
+CON pcAdvanceStep0_ACTIVATE 0 loNextCounter_WR 0
+CON pcAdvanceStep0_ACTIVATE 0 hiNextCounter_WR 0
+
+IMP pcAdvanceStep1 Examples/PC/CONTROL/STEP.lg
+CON pcAdvanceStep0_NEXT 0 pcAdvanceStep1_ACTIVATE 0
+CON pcAdvanceStep1_ACTIVATE 0 nextCounterJK 0
+CON pcAdvanceStep1_ACTIVATE 0 nextCounterJK 2
+
+IMP pcAdvanceStep2 Examples/PC/CONTROL/STEP.lg
+CON pcAdvanceStep1_NEXT 0 pcAdvanceStep2_ACTIVATE 0
+CON pcAdvanceStep2_ACTIVATE 0 loCounter_WR 0
+CON pcAdvanceStep2_ACTIVATE 0 hiCounter_WR 0
+
+
+IMP pcAdvanceStep3 Examples/PC/CONTROL/STEP.lg
+CON pcAdvanceStep2_NEXT 0 pcAdvanceStep3_ACTIVATE 0
+CON pcAdvanceStep3_ACTIVATE 0 nextCounterJK 1
+CON pcAdvanceStep3_ACTIVATE 0 nextCounterJK 2
+
+
+/* END INDO */
+IMP endIndoStep0 Examples/PC/CONTROL/STEP.lg
+CON endIndoStep0_NEXT 0 pcAdvanceStep0_ACTIVATE 0
+
+CON nCLOCK 0 busyState 1
+CON nCLOCK 0 busyState 2
+/* ALU EXEC */
+	/* PROGRAM-> PULSE */
+	IMP aluStep0 Examples/PC/CONTROL/STEP.lg
+	IMP aluEdge  Examples/PC/Util/EDGE_DETECTOR.lg
+	IMP aluMOD  Examples/PC/CONTROL/PULSE_MOD.lg
+	ADD AND aluRise2
+	ADD AND aluRise
+
+	CON aluOP_OUT 0 aluEdge_IN 0
+	CON aluEdge_OUT	0 aluRise2 0
+	CON aluOP_OUT	0 aluRise2 1
+	CON aluRise2 0 aluRise 0
+	CON busyState 1 aluRise 1
+	CON aluRise 0 aluMOD_IN 0
+	CON aluMOD_OUT 0 aluStep0_ACTIVATE 0
+
+	/* ALU STEP 0 */
+	CON aluStep0_ACTIVATE 0 ALUjE 0
+	CON aluStep0_ACTIVATE 0 ALUjE 2
+	CON aluStep0_ACTIVATE 0 busyState 0
+	CON aluStep0_ACTIVATE 0 busyState 2
+	/* ALU STEP 1 */
+	IMP aluStep1 Examples/PC/CONTROL/STEP.lg
+	CON aluStep0_NEXT 0 aluStep1_ACTIVATE 0
+	CON aluStep1_ACTIVATE 0 regCjWR 0
+	CON aluStep1_ACTIVATE 0 regCjWR 2
+	/* ALU STEP 2 */
+	IMP aluStep2 Examples/PC/CONTROL/STEP.lg
+	CON aluStep1_NEXT 0 aluStep2_ACTIVATE 0
+	CON aluStep2_ACTIVATE 0 regCjWR 1
+	CON aluStep2_ACTIVATE 0 regCjWR 2
+	/* ALU STEP 3 */
+	IMP aluStep3 Examples/PC/CONTROL/STEP.lg
+	CON aluStep2_NEXT 0 aluStep3_ACTIVATE 0
+	CON aluStep3_ACTIVATE 0 ALUjE 1
+	CON aluStep3_ACTIVATE 0 ALUjE 2
+
+	CON aluStep3_NEXT 0 endIndoStep0_ACTIVATE 0
+
+/* ReadROM EXEC */
+	/* PROGRAM-> PULSE */
+	IMP romReadStep0 Examples/PC/CONTROL/STEP.lg
+	IMP romReadEdge  Examples/PC/Util/EDGE_DETECTOR.lg
+	IMP romReadMOD  Examples/PC/CONTROL/PULSE_MOD.lg
+	ADD AND romReadRise
+	ADD AND romReadRise2
+
+	CON romReadOP_OUT 0 romReadEdge_IN 0
+	CON romReadEdge_OUT	0 romReadRise2 0
+	CON romReadOP_OUT	0 romReadRise2 1
+	CON romReadRise2 0 romReadRise 0
+	CON busyState 1 romReadRise 1
+	CON romReadRise 0 romReadMOD_IN 0
+	CON romReadMOD_OUT 0 romReadStep0_ACTIVATE 0
+	/* ROM READ step 0 */
+	ADD JK pendingRomRead	
+	CON romReadStep0_ACTIVATE 0 busyState 0
+	CON romReadStep0_ACTIVATE 0 busyState 2
+	CON romReadStep0_ACTIVATE 0 pendingRomRead 0
+	CON romReadStep0_ACTIVATE 0 pendingRomRead 2
+	CON romReadStep0_NEXT 0 pcAdvanceStep0_ACTIVATE 0
+	ADD AND gotRead
+	CON pendingRomRead 0 gotRead 0
+	CON pcAdvanceStep3_NEXT 0 gotRead 1
+	/* ROM READ step 1 */
+	IMP romReadStep1 Examples/PC/CONTROL/STEP.lg
+	CON gotRead 0 romReadStep1_ACTIVATE 0
+	CON romReadStep1_ACTIVATE 0 pendingRomRead 1
+	CON romReadStep1_ACTIVATE 0 pendingRomRead 2
+	CON romReadStep1_ACTIVATE 0 regCjWR 0
+	CON romReadStep1_ACTIVATE 0 regCjWR 2
+	CON romReadStep1_ACTIVATE 0 programReadJK 0
+	CON romReadStep1_ACTIVATE 0 programReadJK 2
+	/* ROM READ step 2 */
+	IMP romReadStep2 Examples/PC/CONTROL/STEP.lg
+	CON romReadStep1_NEXT 0 romReadStep2_ACTIVATE 0
+	CON romReadStep2_ACTIVATE 0 regCjWR 1
+	CON romReadStep2_ACTIVATE 0 regCjWR 2
+	/* ROM READ step 3 */
+	IMP romReadStep3 Examples/PC/CONTROL/STEP.lg
+	CON romReadStep2_NEXT 0 romReadStep3_ACTIVATE 0
+	CON romReadStep3_ACTIVATE 0 programReadJK 1
+	CON romReadStep3_ACTIVATE 0 programReadJK 2	
+	CON romReadStep3_NEXT 0 endIndoStep0_ACTIVATE 0
+
+/* loadAfromC EXEC */
+	/* PROGRAM-> PULSE */
+	IMP ldAcStep0 Examples/PC/CONTROL/STEP.lg
+	IMP ldAcEdge  Examples/PC/Util/EDGE_DETECTOR.lg
+	IMP ldAcMOD  Examples/PC/CONTROL/PULSE_MOD.lg
+	ADD AND ldAcRise
+	ADD AND ldAcRise2
+
+	CON ldAcOP_OUT 0 ldAcEdge_IN 0
+	CON ldAcEdge_OUT	0 ldAcRise2 0
+	CON ldAcOP_OUT		0 ldAcRise2 1
+	CON ldAcRise2		0 ldAcRise 0
+	CON busyState		1 ldAcRise 1
+	CON ldAcRise		0 ldAcMOD_IN 0
+	CON ldAcMOD_OUT 0 ldAcStep0_ACTIVATE 0
+	/* loadAfromC step 0 */
+	CON ldAcStep0_ACTIVATE 0 busyState 0
+	CON ldAcStep0_ACTIVATE 0 busyState 2
+	/*
+	CON ldAcStep0_ACTIVATE 0 regCJK 0
+	CON ldAcStep0_ACTIVATE 0 regCJK 2
+	*/
+	CON ldAcStep0_ACTIVATE 0 regAjWR 0
+	CON ldAcStep0_ACTIVATE 0 regAjWR 2
+	/* loadAfromC step 1 */
+	IMP ldAcStep1 Examples/PC/CONTROL/STEP.lg
+	CON ldAcStep0_NEXT 0 ldAcStep1_ACTIVATE 0
+	CON ldAcStep1_ACTIVATE 0 regAjWR 1
+	CON ldAcStep1_ACTIVATE 0 regAjWR 2
+	/* loadAfromC step 2 */
+	IMP ldAcStep2 Examples/PC/CONTROL/STEP.lg
+	CON ldAcStep1_NEXT 0 ldAcStep2_ACTIVATE 0
+	/*
+	CON ldAcStep2_ACTIVATE 0 regCJK 1
+	CON ldAcStep2_ACTIVATE 0 regCJK 2
+	*/clock
+	
+	CON ldAcStep2_NEXT 0 endIndoStep0_ACTIVATE 0
+	
+/* loadBfromC EXEC */
+	/* PROGRAM-> PULSE */
+	IMP ldBcStep0 Examples/PC/CONTROL/STEP.lg
+	IMP ldBcEdge  Examples/PC/Util/EDGE_DETECTOR.lg
+	IMP ldBcMOD  Examples/PC/CONTROL/PULSE_MOD.lg
+	ADD AND ldBcRise
+	ADD AND ldBcRise2
+
+	CON ldBcOP_OUT 0 ldBcEdge_IN 0
+	CON ldBcEdge_OUT	0 ldBcRise2 0
+	CON ldBcOP_OUT		0 ldBcRise2 1
+	CON ldBcRise2		0 ldBcRise 0
+	CON busyState		1 ldBcRise 1
+	CON ldBcRise		0 ldBcMOD_IN 0
+	CON ldBcMOD_OUT 0 ldBcStep0_ACTIVATE 0
+	/* loadBfromC step 0 */
+	CON ldBcStep0_ACTIVATE 0 busyState 0
+	CON ldBcStep0_ACTIVATE 0 busyState 2
+	CON ldBcStep0_ACTIVATE 0 regCJK 0
+	CON ldBcStep0_ACTIVATE 0 regCJK 2
+	CON ldBcStep0_ACTIVATE 0 regBjWR 0
+	CON ldBcStep0_ACTIVATE 0 regBjWR 2
+	/* loadBfromC step 1 */
+	IMP ldBcStep1 Examples/PC/CONTROL/STEP.lg
+	CON ldBcStep0_NEXT 0 ldBcStep1_ACTIVATE 0
+	CON ldBcStep1_ACTIVATE 0 regBjWR 1
+	CON ldBcStep1_ACTIVATE 0 regBjWR 2
+	/* loadBfromC step 2 */
+	IMP ldBcStep2 Examples/PC/CONTROL/STEP.lg
+	CON ldBcStep1_NEXT 0 ldAcStep2_ACTIVATE 0
+	CON ldBcStep2_ACTIVATE 0 regCJK 1
+	CON ldBcStep2_ACTIVATE 0 regCJK 2
+	
+	CON ldBcStep2_NEXT 0 endIndoStep0_ACTIVATE 0
+

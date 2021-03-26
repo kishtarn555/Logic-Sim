@@ -1,6 +1,7 @@
 ﻿    using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Logic_Sim.Utils;
 namespace Logic_Sim.Engine
 {
@@ -11,6 +12,9 @@ namespace Logic_Sim.Engine
         long curTick = 0;
         public long Tick {
             get { return curTick; }
+        }
+        public long PendingUpdates {
+            get { return updates.Size; }
         }
         public Circuit() {
             updates = new Priority_queue<Update>();
@@ -77,6 +81,8 @@ namespace Logic_Sim.Engine
             }
             
             curTick++;
+            if (updates.Any())
+                curTick = updates.Top.tick;
 
         }
         public void Connect(Component src, int pinsrc, Component des, int pindes) {
