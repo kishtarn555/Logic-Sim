@@ -5,7 +5,7 @@ using System.Linq;
 using Logic_Sim.Utils;
 namespace Logic_Sim.Engine
 {
-    class Circuit {
+    public class Circuit {
         Priority_queue<Update> updates;
         List<Component> components;//Serves no purpourse, but maybe later
         public Priority_queue<(long first, Component second)> DebugComplist;
@@ -23,13 +23,15 @@ namespace Logic_Sim.Engine
             DebugComplist = new Priority_queue<(long first, Component second)>();
         }
 
-        public void RegisterComponent(Component component) {
+        
+        public T RegisterComponent<T>(T component) where T : Component {
             Update n = new Update();
             n.target = component.updatePin;
             n.message = "Created " + component.name;
             n.tick = curTick + 1;
             AddUpdate(n);
             components.Add(component);
+            return component;
         }
         public void DumpData() {
             if ((EngineState.DEBUG&EngineState.DFLAGS.UNSAFE_DUMPING)==0) {

@@ -164,7 +164,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Complex\Pc\Memory\" />
+    <Folder Include="Complex\System\" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Logic_Sim.Engine
 {
-    struct Update: IComparable {
+    public struct Update: IComparable {
         public long tick;
         public string message;
         public Component.Port target;

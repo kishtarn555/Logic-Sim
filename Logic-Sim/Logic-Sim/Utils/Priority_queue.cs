@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic_Sim.Utils
 {
-    class Priority_queue<T> where T:IComparable {
+    public class Priority_queue<T> where T:IComparable {
         int size;
         element<T> head;
         public int Size {

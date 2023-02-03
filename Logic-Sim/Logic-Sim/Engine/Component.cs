@@ -5,7 +5,7 @@ using System.Text;
 using Logic_Sim.Utils;
 namespace Logic_Sim.Engine
 {
-    abstract class Component:IComparable {
+    public abstract class Component:IComparable {
         protected int delay=1;
         public string name { get; private set; }
         public Port updatePin { get; private set; }
